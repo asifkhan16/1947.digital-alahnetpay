@@ -6,10 +6,10 @@
         <div class="container-fluid">
             <div class="nk-header-wrap">
                 <div class="nk-menu-trigger d-xl-none ml-n1">
-                    <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
+                    <a href="javascript:void(0)" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
                 </div>
                 <div class="nk-header-brand d-xl-none">
-                    <a href="html/index.html" class="logo-link">
+                    <a href="javascript:void(0)" class="logo-link">
                         <img class="logo-light logo-img" src="assets/images/logo.png" srcset="assets/images/logo2x.png 2x" alt="logo">
                         <img class="logo-dark logo-img" src="assets/images/logo-dark.png" srcset="assets/images/logo-dark2x.png 2x" alt="logo-dark">
                     </a>
@@ -21,18 +21,18 @@
                 <div class="nk-header-tools">
                     <ul class="nk-quick-nav">
                         <li class="dropdown chats-dropdown hide-mb-xs">
-                            <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown">
+                            <a href="javascript:void(0)" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown">
                                 <div class="icon-status icon-status-na"><em class="icon ni ni-comments"></em></div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
                                 <div class="dropdown-head">
                                     <span class="sub-title nk-dropdown-title">Recent Chats</span>
-                                    <a href="#">Setting</a>
+                                    <a href="javascript:void(0)">Setting</a>
                                 </div>
                                 <div class="dropdown-body">
                                     <ul class="chat-list">
                                         <li class="chat-item">
-                                            <a class="chat-link" href="html/apps-chats.html">
+                                            <a class="chat-link" href="javascript:void(0)">
                                                 <div class="chat-media user-avatar">
                                                     <span>IH</span>
                                                     <span class="status dot dot-lg dot-gray"></span>
@@ -52,7 +52,7 @@
                                             </a>
                                         </li><!-- .chat-item -->
                                         <li class="chat-item is-unread">
-                                            <a class="chat-link" href="html/apps-chats.html">
+                                            <a class="chat-link" href="javascript:void(0)">
                                                 <div class="chat-media user-avatar bg-pink">
                                                     <span>AB</span>
                                                     <span class="status dot dot-lg dot-success"></span>
@@ -72,7 +72,7 @@
                                             </a>
                                         </li><!-- .chat-item -->
                                         <li class="chat-item">
-                                            <a class="chat-link" href="html/apps-chats.html">
+                                            <a class="chat-link" href="javascript:void(0)">
                                                 <div class="chat-media user-avatar">
                                                     <img src="assets/images/avatar/b-sm.jpg" alt="">
                                                 </div>
@@ -88,7 +88,7 @@
                                             </a>
                                         </li><!-- .chat-item -->
                                         <li class="chat-item">
-                                            <a class="chat-link" href="html/apps-chats.html">
+                                            <a class="chat-link" href="javascript:void(0)">
                                                 <div class="chat-media user-avatar user-avatar-multiple">
                                                     <div class="user-avatar">
                                                         <img src="assets/images/avatar/c-sm.jpg" alt="">
@@ -112,7 +112,7 @@
                                             </a>
                                         </li><!-- .chat-item -->
                                         <li class="chat-item">
-                                            <a class="chat-link" href="html/apps-chats.html">
+                                            <a class="chat-link" href="javascript:void(0)">
                                                 <div class="chat-media user-avatar">
                                                     <img src="assets/images/avatar/a-sm.jpg" alt="">
                                                     <span class="status dot dot-lg dot-success"></span>
@@ -129,7 +129,7 @@
                                             </a>
                                         </li><!-- .chat-item -->
                                         <li class="chat-item">
-                                            <a class="chat-link" href="html/apps-chats.html">
+                                            <a class="chat-link" href="javascript:void(0)">
                                                 <div class="chat-media user-avatar bg-purple">
                                                     <span>TW</span>
                                                 </div>
@@ -150,18 +150,18 @@
                                     </ul><!-- .chat-list -->
                                 </div><!-- .nk-dropdown-body -->
                                 <div class="dropdown-foot center">
-                                    <a href="html/apps-chats.html">View All</a>
+                                    <a href="javascript:void(0)">View All</a>
                                 </div>
                             </div>
                         </li>
                         <li class="dropdown notification-dropdown">
-                            <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown">
+                            <a href="javascript:void(0)" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown">
                                 <div class="icon-status icon-status-info"><em class="icon ni ni-bell"></em></div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
                                 <div class="dropdown-head">
                                     <span class="sub-title nk-dropdown-title">Notifications</span>
-                                    <a href="#">Mark All as Read</a>
+                                    <a href="javascript:void(0)">Mark All as Read</a>
                                 </div>
                                 <div class="dropdown-body">
                                     <div class="nk-notification">
@@ -222,12 +222,12 @@
                                     </div><!-- .nk-notification -->
                                 </div><!-- .nk-dropdown-body -->
                                 <div class="dropdown-foot center">
-                                    <a href="#">View All</a>
+                                    <a href="javascript:void(0)">View All</a>
                                 </div>
                             </div>
                         </li>
                         <li class="dropdown user-dropdown">
-                            <a href="#" class="dropdown-toggle mr-n1" data-toggle="dropdown">
+                            <a href="javascript:void(0)" class="dropdown-toggle mr-n1" data-toggle="dropdown">
                                 <div class="user-toggle">
                                     <div class="user-avatar sm">
                                         <em class="icon ni ni-user-alt"></em>
@@ -252,10 +252,10 @@
                                 </div>
                                 <div class="dropdown-inner">
                                     <ul class="link-list">
-                                        <li><a href="html/user-profile-regular.html"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
-                                        <li><a href="html/user-profile-setting.html"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
-                                        <li><a href="html/user-profile-activity.html"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
-                                        <li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
+                                        <li><a href="javascript:void(0)"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
+                                        <li><a href="javascript:void(0)"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
+                                        <li><a href="javascript:void(0)"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
+                                        <li><a class="dark-switch" href="javascript:void(0)"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
                                     </ul>
                                 </div>
                                 <div class="dropdown-inner">

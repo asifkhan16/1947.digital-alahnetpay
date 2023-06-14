@@ -8,7 +8,7 @@ import { Head } from '@inertiajs/vue3';
 <template>
     <Head title="Test Page" />
     <Layout>
-        <div>Test page</div>
+        <div>User page</div>
     </Layout>
 </template>
 
