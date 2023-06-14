@@ -1,0 +1,458 @@
+:root {
+    --primary-color: #2E8B57;
+}
+
+.primary-color {
+    color: var(--primary-color)
+}
+
+/* order page */
+.order-view-header-link {
+    display: inline-block;
+    letter-spacing: 1px;
+    padding: 8px 20px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.order-view-header-link:hover {
+    color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.active-link {
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+}
+
+.order-container {
+    height: 70vh;
+    overflow-y: auto;
+}
+
+.order-payment>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.order-payment .order-payment-details {
+    display: block;
+    width: 40%;
+    text-align: center;
+    overflow-x: auto;
+}
+
+.product-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.product-img-title {
+    font-size: 13px;
+    line-height: -10px;
+}
+
+.product-img-title span {
+    display: block;
+    margin-top: -5px;
+    font-size: 11px;
+}
+
+.order-card-buttons button {
+    outline: none;
+    border: none;
+    padding: 2px 20px;
+    border-radius: 20px;
+}
+
+/* order page end */
+
+/* Vendor Catalog  */
+.create-modifier-input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    outline: none;
+    padding: 4px;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.7)
+}
+
+.modifier-groups-custom-input {
+    width: 80px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.08);
+    border: none;
+    outline: none;
+    margin-left: 1rem;
+    /* color: # */
+}
+
+.order-btn {
+    background-color: var(--primary-color);
+    color: #fff;
+    outline: none;
+    border: none;
+    padding: 5px 20px;
+    border-radius: 40px;
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
+.order-btn:hover {
+    opacity: 1;
+    color: white;
+}
+
+.custom-btn {
+    background-color: #F5F6FA;
+    color: rgba(0, 0, 0, 0.7);
+    outline: none;
+    border: none;
+    padding: 5px 12px;
+    letter-spacing: 1px;
+}
+
+.custom-btn:hover {
+    background-color: #e4e4e7;
+    color: rgba(0, 0, 0, 1);
+}
+
+.custom-form-btn {
+    background-color: var(--primary-color);
+    color: #fff;
+    outline: none;
+    border: none;
+    padding: 3px 20px;
+    letter-spacing: 1px;
+    transition: 0.2s;
+}
+
+.custom-form-btn:hover {
+    color: #fff;
+    transform: scale(1.01);
+}
+
+.custom-form-btn:active,
+.custom-form-btn:focus {
+    border: none;
+    outline: none;
+}
+
+.dispatch-btn {
+    background-color: var(--primary-color);
+    opacity: 0.8;
+    color: #fff;
+    padding: 8px 25px;
+    border-radius: 20px;
+    transition: 0.2s;
+    letter-spacing: 1px;
+}
+
+.dispatch-btn:hover {
+    opacity: 1;
+}
+
+#expand_modifiers_icon {
+    position: absolute;
+    top: 50%;
+    left: -30px;
+    transform: translateY(-50%);
+
+}
+
+
+/* product detail page */
+.sub_product_modifier_row {
+    /* padding: 10px 5px; */
+    /* margin-bottom: 10px; */
+    margin-left: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 1px solid #000; */
+    background-color: #fff;
+    position: relative;
+    width: 85%
+}
+
+.primary-image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover
+}
+
+
+@media screen and (max-width:1200px) {
+    .vendor-catalog-left-wrapper {
+        width: 25% !important;
+    }
+}
+
+@media screen and (max-width:800px) {
+    .vendor-catalog {
+        flex-direction: column;
+    }
+
+    .vendor-catalog-right-wrapper {
+        width: 100% !important;
+        order: 2 !important;
+    }
+
+    .vendor-catalog-left-wrapper {
+        height: auto !important;
+        order: 1 !important;
+        position: static !important;
+        width: 100% !important;
+        margin-bottom: 2rem !important;
+    }
+}
+.menu_category_list :hover .category-name{
+    text-decoration: underline;
+}
+#product-table tr:hover .product-name{
+    text-decoration: underline;
+}
+/* Vendor Catalog end */
+
+.order-detail-status {
+    display: flex;
+    justify-content: space-between;
+}
+
+.vendor-order-status>div,
+.dispatch-order-status>div {
+    padding-bottom: 20px;
+    border-left: 1px solid #5bc0de81;
+}
+
+.vendor-order-status>div,
+.dispatch-order-status>div {
+    padding-left: 20px;
+}
+
+.vendor-order-status>div p,
+.dispatch-order-status>div p {
+    margin-bottom: 0;
+}
+
+.vendor-order-status>div span,
+.dispatch-order-status>div span {
+    font-size: 12px;
+}
+
+.active-status {
+    position: relative;
+}
+
+.unactive-status {
+    color: rgba(0, 0, 0, 0.3);
+    z-index: 22222;
+
+}
+
+.active-status::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -24.5px;
+    z-index: 111;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+}
+
+.active-status::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -22.5px;
+    transform-origin: center;
+    transform: translateY(-30%);
+    width: 5px;
+    height: 5px;
+    background-color: rgba(204, 204, 204, 0.597);
+    opacity: 0.5;
+    animation: status-animation infinite 2s ease-out;
+}
+
+#vendors-table td {
+    vertical-align: middle;
+}
+
+#vendors-table tr:hover td .vendor-name {
+    /* color:red!important; */
+    text-decoration: underline;
+    font-size: 14.2px !important;
+}
+
+.loader-wrapper {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: 222222;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes status-animation {
+    to {
+        scale: 7;
+        transform: translateY(-5.5%);
+        border-radius: 2px;
+    }
+
+    from {
+        scale: 0;
+    }
+
+}
+
+/* Right side bar  */
+#right-side-bar {
+    background-color: white;
+    transform: translateX(350px);
+    box-shadow: 0px 10px 8px 2px rgba(0, 0, 0, 0.09);
+    z-index: 1111;
+    height: 100%;
+    width: 320px;
+    position: fixed;
+    top: 65px;
+    right: 0;
+    transition: 0.4s;
+}
+
+#right-side-bar-new {
+    background-color: white;
+    transform: translateX(350px);
+    box-shadow: 0px 10px 8px 2px rgba(0, 0, 0, 0.09);
+    z-index: 1111;
+    height: 100%;
+    width: 320px;
+    position: fixed;
+    top: 65px;
+    right: 0;
+    transition: 0.4s;
+}
+
+.right-side-bar-wrapper .right-side-bar-close-btn {
+    font-size: 25px;
+    margin-top: 0px;
+    color: rgba(0, 0, 0, 0.6);
+    transition: 0.3s;
+}
+
+.right-side-bar-wrapper .right-side-bar-close-btn:hover {
+    color: #000;
+    /* transform-origin: top; */
+    transform: scale(1.03);
+}
+
+/* Right side bar end */
+
+
+/* alert */
+.custom-alert {
+    position: fixed;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 11111111;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 10px 10px 10px 30px;
+    width: 400px;
+}
+
+/* alert end */
+
+.category {
+    width: 60%;
+    cursor: move;
+    background-color: #fff;
+    /* background-color: #CC704B; */
+}
+
+.child-category {
+    cursor: move;
+    background-color: #fff;
+}
+
+/* swimlane */
+
+.swimlane {
+    cursor: move;
+    background-color: #fff;
+    padding: 2px;
+    margin-bottom: 3px;
+}
+
+.swimlane>div {
+    padding: 0px 1rem 0px 2rem;
+    border-left: 2px solid #CC704B;
+}
+
+.delete-swimlane {
+    transition: 0.3s;
+}
+
+.swimlane:hover .delete-swimlane {
+    color: rgb(178, 61, 61) !important
+}
+
+.swimlane:hover .update-swimlane {
+    color: rgb(20, 174, 226) !important
+}
+
+/* promocode */
+.promocode-details {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.promocode-details span:first-child {
+    width: 100px;
+}
+
+.promocode-table-body tr,
+.promocode-table-body tr .promo-name {
+    transition: 0.3s;
+}
+
+.promocode-table-body tr:hover .promo-name {
+    transform-origin: left;
+    transform: scale(1.1);
+}
+
+.promocode-table-body tr:hover .promo-name span span {
+    text-decoration: underline;
+}
+
+/* customer */
+#customer-table tr:hover .customer-name {
+    text-decoration: underline !important;
+}
+
+/* menu category */
+.menu_category_list {
+    box-shadow: 3px 2px 5px 1px rgba(0, 0, 0, 0.05);
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background: #fff;
+    cursor: move
+}
+
+.center{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
