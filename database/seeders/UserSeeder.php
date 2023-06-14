@@ -19,20 +19,20 @@ class UserSeeder extends Seeder
             'email' => 'superadmin@gmail.com',
             'password' => Hash::make('superadmin1122')
         ]);
-        // $user->assignRole('SuperAdmin');
+        $user->assignRole('SuperAdmin');
 
         $user = User::create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('admin1122')
         ]);
-        // $user->assignRole('Admin');
+        $user->assignRole('Admin');
 
         $user = User::create([
             'name' => 'John',
             'email' => 'john@gmail.com',
             'password' => Hash::make('john1122')
         ]);
-        // $user->assignRole('Client');
+        $user->assignRole('Client');
     }
 }
