@@ -16,9 +16,9 @@
                         </Link>
                     </li>
                     <li class="nk-menu-item">
-                        <Link :href="route('users')" class="nk-menu-link">
+                        <Link :href="route('user.profile.show')" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-dashboard"></em></span>
-                            <span class="nk-menu-text">Users</span>
+                            <span class="nk-menu-text">Profile</span>
                         </Link>
                     </li>
 

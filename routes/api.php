@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
-    return response()->json([
+    $data = [
         'success' => true,
         'message' => 'hello world',
-    ]);
+    ];
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
