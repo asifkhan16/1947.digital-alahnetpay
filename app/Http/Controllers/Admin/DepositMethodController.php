@@ -9,6 +9,9 @@ use Inertia\Inertia;
 class DepositMethodController extends Controller
 {
     public function index(){
-        return Inertia::render('DepositMethod/index');
+        return Inertia::render('DepositMethod/Index');
+    }
+    public function create(){
+        return Inertia::render('DepositMethod/Create');
     }
 }
