@@ -30,9 +30,21 @@ const form = useForm({
 
 const submit = () => {
     form.post(route('profile.store'), {
-        // onFinish: () => form.reset('password'),
-    });
-};
+        onSuccess: (res) => {
+            // alert('profile updated successfully');
+            console.log("🚀 ~ file: User.vue:38 ~ form.post ~ res:", res)
+            // productForm.reset();
+        },
+        onError: (res) => {
+            console.log("🚀 ~ file: Products.vue:88 ~ updateProduct.post ~ res", res)
+        }
+    })
+}
+// const submit = () => {
+//     form.post(route('profile.store'), {
+//         // onFinish: () => form.reset('password'),
+//     });
+// };
 </script>
 
 <template>
