@@ -19,18 +19,13 @@ use Inertia\Inertia;
 
 
 Route::get('/', function () {
-    return Inertia::render('Auth/Login', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return redirect()->route('login');
 });
 
-Route::group(['middleware' => ['auth','role:admin'], 'prefix' => 'admin'] ,function(){
+Route::group(['middleware' => ['auth','role:Admin'], 'prefix' => 'admin'] ,function(){
 
     Route::resource('/deposit_method', DepositMethodController::class);
-    
+
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
