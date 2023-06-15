@@ -61,15 +61,16 @@ const submit = () => {
                                     <div class="form-group">
                                         <div class="form-label-group">
                                             <label class="form-label" for="default-01">Email or Username</label>
-                                    </div>
-                                    <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus
-                                    autocomplete="username" />
-                                    <InputError class="mt-2" :message="form.errors.email" />
+                                        </div>
+                                        <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email"
+                                            required autofocus autocomplete="username" />
+                                        <InputError class="mt-2" :message="form.errors.email" />
                                     </div>
                                     <div class="form-group">
                                         <div class="form-label-group">
                                             <label class="form-label" for="password">Passcode</label>
-                                                <Link :href="route('password.request')" class="link link-primary link-sm">Forgot password?</Link>
+                                            <Link :href="route('password.request')" class="link link-primary link-sm">Forgot
+                                            password?</Link>
 
                                         </div>
                                         <div class="form-control-wrap">
@@ -80,7 +81,7 @@ const submit = () => {
                                             </a>
                                             <TextInput id="password" type="password" class="mt-1 block w-full"
                                                 v-model="form.password" required autocomplete="current-password" />
-                                                <InputError class="mt-2" :message="form.errors.password" />
+                                            <InputError class="mt-2" :message="form.errors.password" />
 
                                         </div>
                                     </div>
@@ -90,15 +91,7 @@ const submit = () => {
                                 </form>
                                 <div class="form-note-s2 text-center pt-4"> New on our platform?
                                     <Link :href="route('register')"><strong>Create an account</strong></Link>
-
                                 </div>
-                                <div class="text-center pt-4 pb-3">
-                                    <h6 class="overline-title overline-title-sap"><span>OR</span></h6>
-                                </div>
-                                <!-- <ul class="nav justify-center gx-4">
-                                        <li class="nav-item"><a class="nav-link" href="#">Facebook</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#">Google</a></li>
-                                    </ul> -->
                             </div>
                         </div>
                     </div>

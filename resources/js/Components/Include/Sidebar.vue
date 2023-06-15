@@ -2,6 +2,7 @@
     import {Link} from "@inertiajs/vue3";
 </script>
 <template>
+
     <div class="nk-sidebar nk-sidebar-fixed is-light " data-content="sidebarMenu">
         <div class="nk-sidebar-element nk-sidebar-head">
             <div class="nk-sidebar-brand">
@@ -30,9 +31,9 @@
                             </Link>
                         </li>
                         <li class="nk-menu-item">
-                            <Link :href="route('users')" class="nk-menu-link">
+                            <Link :href="route('user.profile.show')" class="nk-menu-link">
                                 <span class="nk-menu-icon"><em class="icon ni ni-dashboard"></em></span>
-                                <span class="nk-menu-text">Users</span>
+                                <span class="nk-menu-text">User Profile</span>
                             </Link>
                         </li>
                         <li class="nk-menu-item">
@@ -41,7 +42,6 @@
                                 <span class="nk-menu-text">Deposit Method</span>
                             </Link>
                         </li>
-
 
 
                     </ul><!-- .nk-menu -->

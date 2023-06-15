@@ -1,10 +1,19 @@
 <?php
 
+
+use App\Models\User;
+
 use App\Http\Controllers\Admin\DepositMethodController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+
 use Inertia\Inertia;
+use App\Models\UserProfile;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,20 +35,21 @@ Route::group(['middleware' => ['auth','role:Admin'], 'prefix' => 'admin'] ,funct
 
     Route::resource('/deposit_method', DepositMethodController::class);
 
-    Route::get('/dashboard', function () {
+  
+});
+
+   Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('/users', function () {
-        return Inertia::render('User');
-    })->name('users');
-});
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/user/profile', [ProfileController::class, 'index'])->name('user.profile');
+    Route::get('/user/profile/show', [ProfileController::class, 'show'])->name('user.profile.show');
+    Route::post('/user/profile/update', [ProfileController::class, 'update'])->name('user.profile.update');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    Route::post('/profile/store', [ProfileController::class, 'store'])->name('profile.store');
     
 });
 

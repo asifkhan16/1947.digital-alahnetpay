@@ -18,9 +18,10 @@ Route::group(['prefix' => 'admin/v1'],function(){
     Route::post('/login', [AuthController::class, 'login']);
 });
 Route::get('/test', function () {
-    return response()->json([
+    $data = [
+        'success' => true,
         'message' => 'hello world',
-    ]);
+    ];
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

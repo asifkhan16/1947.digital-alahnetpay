@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
+use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\UserProfile;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class ProfileController extends Controller
 {
+    public function index()
+    {
+        return Inertia::render('Auth/User-profile');
+    }
     /**
      * Display the user's profile form.
      */
@@ -27,17 +34,41 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    // public function update(ProfileUpdateRequest $request): RedirectResponse
+    // {
+    //     $request->user()->fill($request->validated());
+
+    //     if ($request->user()->isDirty('email')) {
+    //         $request->user()->email_verified_at = null;
+    //     }
+
+    //     $request->user()->save();
+
+    //     return Redirect::route('profile.edit');
+    // }
+
+    public function update(Request $request)
     {
-        $request->user()->fill($request->validated());
+        $request->validate([
+            'dob' => 'required|date',
+            'country' => 'required',
+            'city' => 'required',
+            'address' => 'required',
+            'postal_code' => 'required',
+            'country_code' => 'required',
+            'phone_no' => 'required',
+        ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+        UserProfile::where('user_id', Auth::id())->update([
+            'date_of_birth' => $request->dob,
+            'country' => $request->country,
+            'city' => $request->city,
+            'address' => $request->address,
+            'postal_code' => $request->postal_code,
+            'country_code' => $request->country_code,
+            'phone_number' => $request->phone_no,
+        ]);
 
-        $request->user()->save();
-
-        return Redirect::route('profile.edit');
     }
 
     /**
@@ -59,5 +90,51 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function store(Request $request)
+    {
+        try {
+
+            $request->validate([
+                'dob' => 'required|date',
+                'country' => 'required',
+                'city' => 'required',
+                'address' => 'required',
+                'postal_code' => 'required',
+                'country_code' => 'required',
+                'phone_no' => 'required',
+            ]);
+
+            $path = '';
+            if ($request->hasFile('avatar')) {
+                $request->validate([
+                    'image' => 'mimes:png,jpg,jpeg,gif'
+                ]);
+                $path = $request->file('avatar')->store('User/Images', 'public');
+            }
+            UserProfile::create([
+                'user_id' => Auth::id(),
+                'date_of_birth' => $request->dob,
+                'country' => $request->country,
+                'city' => $request->city,
+                'address' => $request->address,
+                'postal_code' => $request->postal_code,
+                'country_code' => $request->country_code,
+                'phone_number' => $request->phone_no,
+                'avatar' => $request->path,
+            ]);
+            return Redirect::to('/dashboard');
+        } catch (\Throwable $th) {
+            return back();
+        }
+    }
+
+    public function show()
+    {
+        $user = User::with('user_profile')->where('id', Auth::id())->first();
+        return Inertia::render('User', [
+            'user' => $user
+        ]);
     }
 }
