@@ -35,6 +35,12 @@
                                 <span class="nk-menu-text">Users</span>
                             </Link>
                         </li>
+                        <li class="nk-menu-item">
+                            <Link :href="route('deposit_method.index')" class="nk-menu-link">
+                                <span class="nk-menu-icon"><em class="icon ni ni-dashboard"></em></span>
+                                <span class="nk-menu-text">Deposit Method</span>
+                            </Link>
+                        </li>
 
 
 
