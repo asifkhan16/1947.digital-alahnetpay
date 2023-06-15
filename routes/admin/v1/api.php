@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Admin\Auth\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\V1\Admin\Auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,16 +14,5 @@ use App\Http\Controllers\Api\V1\Admin\Auth\AuthController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::group(['prefix' => 'admin/v1'],function(){
-    Route::post('/login', [AuthController::class, 'login']);
-});
-Route::get('/test', function () {
-    $data = [
-        'success' => true,
-        'message' => 'hello world',
-    ];
-});
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::post('/login', [AuthController::class, 'login']);

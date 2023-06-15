@@ -1,6 +1,13 @@
 <?php
 
+
 use App\Models\User;
+
+use App\Http\Controllers\Admin\DepositMethodController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
+
 use Inertia\Inertia;
 use App\Models\UserProfile;
 use Illuminate\Support\Facades\Auth;
@@ -21,13 +28,19 @@ use App\Http\Controllers\ProfileController;
 
 
 Route::get('/', function () {
-    return Inertia::render('Auth/Login', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return redirect()->route('login');
 });
+
+Route::group(['middleware' => ['auth','role:Admin'], 'prefix' => 'admin'] ,function(){
+
+    Route::resource('/deposit_method', DepositMethodController::class);
+
+  
+});
+
+   Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
 
 
 Route::middleware('auth')->group(function () {
@@ -37,15 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/profile/store', [ProfileController::class, 'store'])->name('profile.store');
-
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
-
-    // Route::get('/profile', function () {
-    //     return Inertia::render('Auth/User-details');
-    // })->name('dashboard');
-
+    
 });
 
 require __DIR__ . '/auth.php';
