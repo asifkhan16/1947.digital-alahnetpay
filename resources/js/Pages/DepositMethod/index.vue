@@ -21,10 +21,10 @@ import { Head,Link } from '@inertiajs/vue3';
                         <div class="toggle-expand-content" data-content="pageMenu">
                             <ul class="nk-block-tools g-3">
                                 <li class="nk-block-tools-opt">
-                                    <!-- <Link :href="route('deposit_method.create')" class="nk-menu-link">
+                                    <Link :href="route('deposit_method.create')" class="btn btn-sm btn-secondary">
                                         <em class="icon ni ni-plus"></em><span>Add Deposit Method</span>
-                                    </Link> -->
-                                    <a href="admin/deposit_method/create" class="btn btn-primary"><em class="icon ni ni-plus"></em><span>Add Deposit Method</span></a>
+                                    </Link>
+                                    <!-- <a href="" class="btn btn-primary"><em class="icon ni ni-plus"></em><span>Add Deposit Method</span></a> -->
                                 </li>
                             </ul>
                         </div>

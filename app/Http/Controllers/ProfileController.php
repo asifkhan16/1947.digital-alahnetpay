@@ -68,7 +68,6 @@ class ProfileController extends Controller
             'country_code' => $request->country_code,
             'phone_number' => $request->phone_no,
         ]);
-
     }
 
     /**
@@ -94,18 +93,17 @@ class ProfileController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'dob' => 'required|date',
+            'country' => 'required',
+            'city' => 'required',
+            'address' => 'required',
+            'postal_code' => 'required',
+            'country_code' => 'required',
+            'phone_no' => 'required',
+        ]);
+
         try {
-
-            $request->validate([
-                'dob' => 'required|date',
-                'country' => 'required',
-                'city' => 'required',
-                'address' => 'required',
-                'postal_code' => 'required',
-                'country_code' => 'required',
-                'phone_no' => 'required',
-            ]);
-
             $path = '';
             if ($request->hasFile('avatar')) {
                 $request->validate([
@@ -124,8 +122,9 @@ class ProfileController extends Controller
                 'phone_number' => $request->phone_no,
                 'avatar' => $request->path,
             ]);
-            return Redirect::to('/dashboard');
+            return redirect()->route('user.profile.show');
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             return back();
         }
     }
@@ -133,6 +132,8 @@ class ProfileController extends Controller
     public function show()
     {
         $user = User::with('user_profile')->where('id', Auth::id())->first();
+        if (!$user->user_profile)
+            return redirect()->route('user.profile');
         return Inertia::render('User', [
             'user' => $user
         ]);

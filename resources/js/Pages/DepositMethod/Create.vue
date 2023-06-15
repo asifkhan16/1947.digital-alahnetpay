@@ -49,10 +49,10 @@ function addVendor() {
                         <div class="toggle-expand-content" data-content="pageMenu">
                             <ul class="nk-block-tools g-3">
                                 <li class="nk-block-tools-opt">
-                                    <!-- <Link :href="route('deposit_method.create')" class="nk-menu-link">
-                                        <em class="icon ni ni-plus"></em><span>Add Deposit Method</span>
-                                    </Link> -->
-                                    <a href="admin/deposit_method/index" class="btn btn-primary"><span> back</span></a>
+                                    <Link :href="route('deposit_method.index')" class="btn btn-sm btn-secondary">
+                                        <em class="icon ni ni-back-alt-fill"></em><span>back</span>
+                                    </Link>
+                                    <!-- <a href="admin/deposit_method/index" class="btn btn-primary"><span> back</span></a> -->
                                 </li>
                             </ul>
                         </div>
@@ -89,8 +89,8 @@ function addVendor() {
                                 <button type="submit" class="d-block w-100 btn btn-s  btn-secondary">Submit</button>
                             </div>
                         </div>
-    
-    
+
+
                     </form>
                 </div>
             </div>
