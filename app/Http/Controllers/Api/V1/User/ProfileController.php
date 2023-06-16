@@ -31,7 +31,7 @@ class ProfileController extends Controller
             return ErrorResponse($validator->errors()->first());
 
         try {
-            $path = '';
+            $file_path = '';
             if ($request->hasFile('avatar')) {
                 $request->validate([
                     'avatar' => 'mimes:png,jpg,jpeg,gif'
@@ -72,7 +72,7 @@ class ProfileController extends Controller
             return ErrorResponse($validator->errors()->first());
         }
         try {
-            $path = '';
+            $file_path = '';
             if ($request->hasFile('avatar')) {
                 $request->validate([
                     'avatar' => 'mimes:png,jpg,jpeg,gif'
