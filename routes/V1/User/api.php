@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\V1\Admin\Auth\AuthController;
+use App\Http\Controllers\Api\V1\User\Auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +16,8 @@ use App\Http\Controllers\Api\V1\Admin\Auth\AuthController;
 */
 Route::post('/login',        [AuthController::class , 'login']);
 Route::post('/register',     [AuthController::class , 'register']);
+
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('/profile/create',     [AuthController::class , 'storeProfile']);
+
+});
