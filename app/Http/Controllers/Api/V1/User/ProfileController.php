@@ -6,6 +6,7 @@ use App\Models\UserProfile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
@@ -33,9 +34,10 @@ class ProfileController extends Controller
             $path = '';
             if ($request->hasFile('avatar')) {
                 $request->validate([
-                    'image' => 'mimes:png,jpg,jpeg,gif'
+                    'avatar' => 'mimes:png,jpg,jpeg,gif'
                 ]);
-                $path = $request->file('avatar')->store('User/Images', 'public');
+                $file = $request->file('avatar')->store('User/Images', 'public');
+                $file_path = Storage::disk('public')->url($file);
             }
             UserProfile::create([
                 'user_id' => Auth::id(),
@@ -46,7 +48,7 @@ class ProfileController extends Controller
                 'postal_code' => $request->postal_code,
                 'country_code' => $request->country_code,
                 'phone_number' => $request->phone_no,
-                'avatar' => $path,
+                'avatar' => $file_path,
             ]);
             return SuccessResponse('User profile created successfully.');
         } catch (\Throwable $th) {
@@ -73,9 +75,10 @@ class ProfileController extends Controller
             $path = '';
             if ($request->hasFile('avatar')) {
                 $request->validate([
-                    'image' => 'mimes:png,jpg,jpeg,gif'
+                    'avatar' => 'mimes:png,jpg,jpeg,gif'
                 ]);
-                $path = $request->file('avatar')->store('User/Images', 'public');
+                $file = $request->file('avatar')->store('User/Images', 'public');
+                $file_path = Storage::disk('public')->url($file);
             }
 
             UserProfile::where('user_id', Auth::id())->update([
@@ -87,7 +90,7 @@ class ProfileController extends Controller
                 'postal_code' => $request->postal_code,
                 'country_code' => $request->country_code,
                 'phone_number' => $request->phone_no,
-                'avatar' => $path,
+                'avatar' => $file_path,
             ]);
 
             return SuccessResponse('User profile updated successfully.');
