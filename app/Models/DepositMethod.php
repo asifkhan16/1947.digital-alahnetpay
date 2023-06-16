@@ -11,6 +11,7 @@ class DepositMethod extends Model
 
     protected $fillable = [
         'name',
+        'image_name',
         'image_url',
         'fixed_deposit_fee',
         'percentage_deposit_fee',
