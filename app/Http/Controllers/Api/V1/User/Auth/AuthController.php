@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\V1\User\Auth;
 
 use App\Models\User;
-use App\Models\UserProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -72,43 +71,28 @@ class AuthController extends Controller
         }
     }
 
-    public function storeProfile(Request $request)
+
+    public function change_password(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'date_of_birth' => 'required|date',
-            'country' => 'required',
-            'city' => 'required',
-            'address' => 'required',
-            'postal_code' => 'required',
-            'country_code' => 'required',
-            'phone_no' => 'required',
+            'current_password' => 'required',
+            'new_password' => 'required|min:8',
         ]);
 
         if ($validator->fails())
-        return ErrorResponse($validator->errors()->first());
+            return ErrorResponse($validator->errors()->first());
 
-        try {
-            $path = '';
-            if ($request->hasFile('avatar')) {
-                $request->validate([
-                    'image' => 'mimes:png,jpg,jpeg,gif'
-                ]);
-                $path = $request->file('avatar')->store('User/Images', 'public');
+        if ($request->new_password != $request->confirm_new_password)
+            return ErrorResponse('The password confirmation does not match');
+
+            if (!Hash::check($request->current_password, auth()->user()->password)) {
+                return ErrorResponse("Current Password Doesn't match!");
             }
-            UserProfile::create([
-                'user_id' => Auth::id(),
-                'date_of_birth' => $request->dob,
-                'country' => $request->country,
-                'city' => $request->city,
-                'address' => $request->address,
-                'postal_code' => $request->postal_code,
-                'country_code' => $request->country_code,
-                'phone_number' => $request->phone_no,
-                'avatar' => $path,
+            User::whereId(auth()->user()->id)->update([
+                'password' => Hash::make($request->new_password)
             ]);
-            return SuccessResponse('User profile created successfully.');
-        } catch (\Throwable $th) {
-            return ErrorResponse($th->getMessage());
-        }
+
+            return SuccessResponse('Password changed successfully.');
+
     }
 }
