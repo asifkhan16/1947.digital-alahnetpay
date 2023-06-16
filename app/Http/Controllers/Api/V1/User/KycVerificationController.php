@@ -19,8 +19,6 @@ class KycVerificationController extends Controller
         $validator = Validator::make($request->all(), [
             'document_front' => 'required|mimes:png,jpg,jpeg,gif'
         ]);
-        if ($validator->fails())
-            return ErrorResponse($validator->errors()->first());
 
         if ($request->hasFile('document_back')) {
             $validator = Validator::make($request->all(), [
@@ -34,7 +32,7 @@ class KycVerificationController extends Controller
             $document_front_file_path = Storage::disk('public')->url($document_front_file);
             $document_back_file_path = '';
             if ($request->hasFile('document_back')) {
-                $document_back_file = $request->file('document_back')->store('User/Images', 'public');
+                $document_back_file = $request->file('document_back')->store('User/kyc-verification', 'public');
                 $document_back_file_path = Storage::disk('public')->url($document_back_file);
             }
 
