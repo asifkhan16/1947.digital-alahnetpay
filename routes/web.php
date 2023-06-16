@@ -41,4 +41,3 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/store', [ProfileController::class, 'store'])->name('profile.store');
 });
 
-require __DIR__ . '/auth.php';
