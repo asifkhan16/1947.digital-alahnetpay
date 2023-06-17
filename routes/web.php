@@ -18,8 +18,8 @@ Route::get('/', function () {
     return view('app');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/dashboard_test', function () {
+    return view('dashboard_test');
 })->name('dashboard');
 
 Route::middleware('auth')->group(function () {
