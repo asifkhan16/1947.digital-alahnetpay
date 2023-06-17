@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Http\Controllers\Admin\KycController;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -46,5 +48,9 @@ class User extends Authenticatable
 
     public function user_profile(){
         return $this->hasOne(UserProfile::class);
+    }
+
+    public function kyc_verification(){
+        return $this->hasOne(KycVerification::class);
     }
 }
