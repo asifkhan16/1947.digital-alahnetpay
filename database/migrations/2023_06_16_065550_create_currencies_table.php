@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('currencies', function (Blueprint $table) {
             $table->id();
             $table->string('code');
-            $table->string('flag_url');
+            $table->string('flag_url')->nullable();
             $table->timestamps();
         });
     }

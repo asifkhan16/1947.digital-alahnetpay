@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Wallet extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'currency_id',
+        'name',
+        'address',
+        'balance'
+    ];
 }
