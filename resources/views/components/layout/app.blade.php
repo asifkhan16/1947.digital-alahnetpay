@@ -21,7 +21,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 	<link href="{{ asset('dashtreme/assets/css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('dashtreme/assets/css/icons.css') }}" rel="stylesheet">
-	
+
 	<title>Dashtreme - Multipurpose Bootstrap5 Admin Template</title>
 </head>
 
@@ -29,10 +29,10 @@
 	<!--wrapper-->
 	<div class="wrapper">
 		<!--sidebar wrapper -->
-        <x-include.sidebar/>
+        <x-Include.sidebar/>
 		<!--end sidebar wrapper -->
 		<!--start header -->
-		<x-include.header/>
+		<x-Include.header/>
 		<!--end header -->
 		<!--start page wrapper -->
 		<div class="page-wrapper">
@@ -53,7 +53,7 @@
 	</div>
 	<!--end wrapper-->
 	<!--start switcher-->
-	<x-include.switcher/>
+	<x-Include.switcher/>
 	<!--end switcher-->
 	<!-- Bootstrap JS -->
 	<script src="{{ asset('dashtreme/assets/js/bootstrap.bundle.min.js') }}"></script>

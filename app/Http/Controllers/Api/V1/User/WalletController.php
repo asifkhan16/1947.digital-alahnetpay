@@ -19,7 +19,7 @@ class WalletController extends Controller
         return SuccessResponse($user_wallets);
     }
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3|max:50',
