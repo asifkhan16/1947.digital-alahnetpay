@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\KycController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,10 @@ Route::group(['middleware' => ["auth",'role:Admin'],'prefix' => "admin"], functi
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::get('/users', [UsersController::class, 'index'])->name('users.index');
+    Route::get('/users/kyc-verification', [KycController::class, 'index'])->name('users.kyc-verification');
+    Route::get('/users/kyc-verification/pending', [KycController::class, 'kyc_pending'])->name('users.kyc-verification.pending');
+    Route::get('/users/kyc-verification/canceled', [KycController::class, 'kyc_canceled'])->name('users.kyc-verification.canceled');
+    Route::get('/users/kyc-verification/completed', [KycController::class, 'kyc_completed'])->name('users.kyc-verification.completed');
 });
 
 Route::middleware('auth')->group(function () {

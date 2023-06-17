@@ -8,7 +8,7 @@
         </div>
         <div class="toggle-icon ms-auto"><i class='bx bx-arrow-back'></i>
         </div>
-     </div>
+    </div>
     <!--navigation-->
     <ul class="metismenu" id="menu">
         <li>
@@ -24,6 +24,34 @@
                 <div class="parent-icon"><i class='lni lni-users'></i>
                 </div>
                 <div class="menu-title">Users</div>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('users.kyc-verification') }}">
+                <div class="parent-icon"><i class='lni lni-users'></i>
+                </div>
+                <div class="menu-title">Kyc Verification</div>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('users.kyc-verification.pending') }}">
+                <div class="parent-icon"><i class='lni lni-use'></i>
+                </div>
+                <div class="menu-title">Pending</div>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('users.kyc-verification.completed') }}">
+                <div class="parent-icon"><i class='lni lni-use'></i>
+                </div>
+                <div class="menu-title">Completed</div>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('users.kyc-verification.canceled') }}">
+                <div class="parent-icon"><i class='lni lni-use'></i>
+                </div>
+                <div class="menu-title">Canceled</div>
             </a>
         </li>
     </ul>
