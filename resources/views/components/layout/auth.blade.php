@@ -33,7 +33,7 @@
 	</div>
 	<!--end wrapper-->
 	<!--start switcher-->
-	<x-include.switcher/>
+	<x-Include.switcher/>
 	<!--end switcher-->
 	<!-- Bootstrap JS -->
 	<script src="assets/js/bootstrap.bundle.min.js"></script>

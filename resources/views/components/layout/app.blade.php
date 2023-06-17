@@ -47,9 +47,11 @@
 		<!--end overlay-->
 		<!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
 		<!--End Back To Top Button-->
+        <!--
 		<footer class="page-footer">
 			<p class="mb-0">Copyright © 2023. All right reserved.</p>
 		</footer>
+        -->
 	</div>
 	<!--end wrapper-->
 	<!--start switcher-->
@@ -69,6 +71,8 @@
 	<script src="{{ asset('dashtreme/assets/plugins/sparkline-charts/jquery.sparkline.min.js') }}"></script>
 	<script src="{{ asset('dashtreme/assets/plugins/jquery-knob/excanvas.js') }}"></script>
 	<script src="{{ asset('dashtreme/assets/plugins/jquery-knob/jquery.knob.js') }}"></script>
+	<script src="{{ asset('dashtreme/assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+	<script src="{{ asset('dashtreme/assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
 	  <script>
 		  $(function() {
 			  $(".knob").knob();
