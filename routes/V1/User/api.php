@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\User\Auth\AuthController;
 use App\Http\Controllers\Api\V1\User\KycVerificationController;
 use App\Http\Controllers\Api\V1\User\ProfileController;
+use App\Http\Controllers\Api\V1\User\WalletController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +26,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/profile/create',      [ProfileController::class, 'store']);
     Route::post('/profile/update',      [ProfileController::class, 'update']);
     Route::post('/kyc-verification',    [KycVerificationController::class, 'store']);
+
+    // wallet routes
+    Route::get('wallet/show', [WalletController::class, 'show']);
+    Route::post('wallet/create', [WalletController::class, 'create']);
 });
