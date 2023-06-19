@@ -30,5 +30,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     // wallet routes
     Route::get('wallet/show', [WalletController::class, 'show']);
     Route::post('wallet/store', [WalletController::class, 'store']);
-    Route::post('wallet/update', [WalletController::class, 'update']);
+    Route::post('wallet/transfer/local', [WalletController::class, 'local_transfer']);
 });
