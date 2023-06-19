@@ -12,14 +12,20 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class DepositMethodController extends Controller
 {
-    public function index(){
-        return view('DepositMethod/Index');
+    public function index()
+    {
+        $deposit_methods = DepositMethod::all();
+        // dd($deposit_methods->toArray());
+        return view('admin.deposit-method.index')->with('deposit_methods', $deposit_methods);
     }
-    public function create(){
-        return view('DepositMethod/Create');
+    public function create()
+    {
+        return view('admin.deposit-method.create');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
+        // dd($request->all());
         $request->validate([
             'name' => 'required',
             'image' => 'required',
@@ -29,26 +35,32 @@ class DepositMethodController extends Controller
         ]);
 
         try {
-            $image = $request->file('image')->store('/DepositMethod/Image','public');
+            $image = $request->file('image')->store('/DepositMethod/Image', 'public');
             $image_url = Storage::disk('public')->url($image);
 
             DepositMethod::create([
                 'name' => $request->name,
-                'image_name' => $image,
                 'image_url' => $image_url,
                 'fixed_deposit_fee' => $request->fixed_deposit_fee,
                 'percentage_deposit_fee' => $request->percentage_deposit_fee,
                 'status' => $request->status
             ]);
 
-            return back()->with(['success' => 'true', 'message' => 'Deposit Method Added Successfully.']);
+            return redirect()->route('deposit-methods')->with(['success' => 'true', 'message' => 'Deposit Method Added Successfully.']);
         } catch (\Throwable $th) {
-            Log::error('Deposit method Store Error : '. $th->getMessage());
+            dd($th->getMessage());
+            Log::error('Deposit method Store Error : ' . $th->getMessage());
             return back()->with(['success' => 'false', 'message' => 'Operation Faield.']);
         }
     }
 
-    public function update(Request $request, DepositMethod $depositMethod){
+    public function edit(DepositMethod $deposit_method)
+    {
+        return view('admin.deposit-method.edit')->with('method', $deposit_method);
+    }
+
+    public function update(Request $request, DepositMethod $method)
+    {
         $request->validate([
             'name' => 'required',
             'image' => 'required',
@@ -66,32 +78,32 @@ class DepositMethodController extends Controller
                 'status' => $request->status
             ];
 
-            if($request->hasFile('image')){
-                if(Storage::disk('public')->exists($depositMethod->image_name))
-                    Storage::disk('public')->delete($depositMethod->image_name);
+            if ($request->hasFile('image')) {
+                if (Storage::disk('public')->exists($method->image_name))
+                    Storage::disk('public')->delete($method->image_name);
 
-                $image = $request->file('image')->store('/DepositMethod/Image','public');
+                $image = $request->file('image')->store('/DepositMethod/Image', 'public');
                 $image_url = Storage::disk('public')->url($image);
 
                 $data['image_name'] = $image;
                 $data['image_url'] = $image_url;
-
             }
 
-            DepositMethod::where('id',$depositMethod->id)->update($data);
+            DepositMethod::where('id', $method->id)->update($data);
 
-            return back()->with(['success' => 'true', 'message' => 'Deposit Method Updated Successfully.']);
-
+            return redirect()->route('deposit-methods')->with(['success' => 'true', 'message' => 'Deposit Method Updated Successfully.']);
         } catch (\Throwable $th) {
-            Log::error('Deposit method Update Error : '. $th->getMessage());
+            dd($th->getMessage());
+            Log::error('Deposit method Update Error : ' . $th->getMessage());
             return back()->with(['success' => 'false', 'message' => 'Operation Faield.']);
         }
     }
 
-    public function destroy(DepositMethod $depositMethod){
+    public function destroy(DepositMethod $depositMethod)
+    {
 
         try {
-            if(Storage::disk('public')->exists($depositMethod->image_name))
+            if (Storage::disk('public')->exists($depositMethod->image_name))
                 Storage::disk('public')->delete($depositMethod->image_name);
         } catch (FileNotFoundException $th) {
             Log::error($th->getMessage());

@@ -43,6 +43,13 @@
                 </li>
             </ul>
         </li>
+        <li>
+            <a href="{{ route('deposit-methods') }}">
+                <div class="parent-icon"><i class='lni lni-users'></i>
+                </div>
+                <div class="menu-title">Deposit Methods</div>
+            </a>
+        </li>
     </ul>
     <!--end navigation-->
 </div>
