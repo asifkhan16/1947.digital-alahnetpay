@@ -13,10 +13,10 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 class DepositMethodController extends Controller
 {
     public function index(){
-        return Inertia::render('DepositMethod/Index');
+        return view('DepositMethod/Index');
     }
     public function create(){
-        return Inertia::render('DepositMethod/Create');
+        return view('DepositMethod/Create');
     }
 
     public function store(Request $request){
@@ -71,17 +71,17 @@ class DepositMethodController extends Controller
                     Storage::disk('public')->delete($depositMethod->image_name);
 
                 $image = $request->file('image')->store('/DepositMethod/Image','public');
-                $image_url = Storage::disk('public')->url($image); 
+                $image_url = Storage::disk('public')->url($image);
 
                 $data['image_name'] = $image;
                 $data['image_url'] = $image_url;
-                
+
             }
 
             DepositMethod::where('id',$depositMethod->id)->update($data);
 
             return back()->with(['success' => 'true', 'message' => 'Deposit Method Updated Successfully.']);
-            
+
         } catch (\Throwable $th) {
             Log::error('Deposit method Update Error : '. $th->getMessage());
             return back()->with(['success' => 'false', 'message' => 'Operation Faield.']);
@@ -96,7 +96,7 @@ class DepositMethodController extends Controller
         } catch (FileNotFoundException $th) {
             Log::error($th->getMessage());
         }
-        
+
         $depositMethod->delete();
 
         return back()->with(['success' => 'true', 'message' => 'Deposit method deleted successfully.']);

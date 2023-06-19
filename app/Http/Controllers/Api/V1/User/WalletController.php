@@ -47,4 +47,9 @@ class WalletController extends Controller
 
         return SuccessResponse('Your wallet has been created successfully.');
     }
+
+    public function update(Request $request)
+    {
+        return SuccessResponse("za alaka kor ta");
+    }
 }
