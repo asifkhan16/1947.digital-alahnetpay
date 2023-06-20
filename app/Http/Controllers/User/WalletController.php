@@ -68,11 +68,10 @@ class WalletController extends Controller
                 'charges' => 0,
             ]);
             DB::commit();
-            return redirect()->back()->with('success', 'Your money transfer is complete')->with('wallet',);
+            return redirect()->back()->with('success', 'Your money transfer is complete');
         } catch (\Throwable $th) {
             DB::rollBack();
+            return redirect()->back()->with('error', $th->getMessage());
         }
-
-        dd($request->all());
     }
 }
