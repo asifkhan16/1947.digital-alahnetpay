@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->double('credit')->default(0.0);
             $table->double('debit')->default(0.0);
-            $table->tinyInteger('status');
             $table->double('charges');
+            $table->tinyInteger('status')->default(0)->comment("0 => pending, 1 => completed, 2 => cancelled");
             $table->timestamps();
         });
     }
