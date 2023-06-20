@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users','id');
             $table->foreignId('wallet_id')->constrained('wallets','id');
             $table->string('description')->nullable();
-            $table->double('amount');
+            $table->double('credit')->default(0.0);
+            $table->double('debit')->default(0.0);
             $table->tinyInteger('status');
             $table->double('charges');
             $table->timestamps();

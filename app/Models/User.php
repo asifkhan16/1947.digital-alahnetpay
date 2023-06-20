@@ -53,4 +53,5 @@ class User extends Authenticatable
     public function kyc_verification(){
         return $this->hasOne(KycVerification::class);
     }
+
 }
