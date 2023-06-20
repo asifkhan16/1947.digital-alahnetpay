@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('address');
             $table->double('balance');
+            $table->tinyInteger('status')->default(1)->comment('0 => blocked, 1 => Active');
             $table->timestamps();
         });
     }

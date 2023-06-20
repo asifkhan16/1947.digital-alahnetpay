@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\User\Auth\AuthController;
+use App\Http\Controllers\Api\V1\User\DepositController;
 use App\Http\Controllers\Api\V1\User\KycVerificationController;
 use App\Http\Controllers\Api\V1\User\ProfileController;
 use App\Http\Controllers\Api\V1\User\WalletController;
@@ -31,4 +32,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('wallet/show', [WalletController::class, 'show']);
     Route::post('wallet/store', [WalletController::class, 'store']);
     Route::post('wallet/transfer/local', [WalletController::class, 'local_transfer']);
+
+    //transactions
+    Route::get('/deposit_methods', [DepositController::class, 'index']);
+    Route::post('/choose_depostit_method', [DepositController::class, 'chooseDepositMethod']);
 });
