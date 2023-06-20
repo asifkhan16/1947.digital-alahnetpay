@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api\V1\User;
 
 use App\Models\Wallet;
 use App\Models\Currency;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -52,17 +54,58 @@ class WalletController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'amount' => 'required|min:1|numeric',
-            'recipient_address' => 'required',
+            'wallet_address' => 'required',
+            'recipient_wallet_address' => 'required'
         ]);
 
         if ($validator->fails())
             return ErrorResponse($validator->errors()->first());
 
-        $wallet = Wallet::where('address', $request->recipient_address)->first();
+        $wallet = Wallet::where('address', $request->wallet_address)->first();
         if (!$wallet)
             return ErrorResponse('Wallet not found.');
 
-        Wallet::where('address', $request->recipient_address)->increment('balance', $request->amount);
-        return SuccessResponse('Transfer completed.');
+        $recipient_wallet = Wallet::where('address', $request->recipient_wallet_address)->first();
+        if (!$recipient_wallet)
+            return ErrorResponse('Recipient Wallet not found.');
+
+
+        $charges = 3;
+        if (($request->amount + $charges) > $wallet->balance)
+            return ErrorResponse('Your wallet balance is insufficient to complete this transaction.');
+
+        if ($recipient_wallet->user_id == Auth::id())
+            return ErrorResponse('You are unable to make transactions to your own wallet');
+
+        try {
+            $charges = 3;
+            DB::beginTransaction();
+            Wallet::where('address', $request->recipient)->increment('balance', $request->amount);
+            Wallet::where('id', $wallet->id)->decrement('balance', ($request->amount + $charges));
+            // Transaction for sender
+            Transaction::create([
+                'user_id' => Auth::id(),
+                'wallet_id' => $wallet->id,
+                'description' => $request->description,
+                'debit' => $request->amount,
+                'status' => 1,
+                'charges' => $charges
+            ]);
+            // Transaction for Reciever
+            Transaction::create([
+                'user_id' => $recipient_wallet->user_id,
+                'wallet_id' => $recipient_wallet->id,
+                'description' => 'Amount recieved',
+                'credit' => $request->amount,
+                'status' => 1,
+                'charges' => 0,
+            ]);
+            DB::commit();
+            return SuccessResponse('Your money transfer is complete.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return ErrorResponse($th->getMessage());
+        }
+
     }
 }
