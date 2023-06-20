@@ -56,8 +56,10 @@ Route::middleware('auth')->group(function () {
 Route::group(['middleware' => ["auth", "role:User"], 'prefix' => 'user'], function () {
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard.index');
     Route::get('/wallets', [WalletController::class, 'index'])->name('user.wallets');
+    // send local transfer routes
     Route::get('/wallets/send/{wallet}', [WalletController::class, 'send'])->name('user.wallet.send');
     Route::get('/wallets/send/local-transfer/{wallet}', [WalletController::class, 'createLocal_tranfer'])->name('user.wallet.send.local_transfer');
     Route::post('/wallets/send/local-transfer/{wallet}', [WalletController::class, 'send_Local_tranfer'])->name('user.wallet.send.local_transfer.submit');
+
 });
 require __DIR__ . '/auth.php';

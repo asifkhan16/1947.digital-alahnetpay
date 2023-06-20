@@ -27,6 +27,7 @@ class WalletController extends Controller
 
     public function send_Local_tranfer(Request $request, Wallet $wallet)
     {
+        // $request->validate([])
         dd($request->all());
     }
 }
