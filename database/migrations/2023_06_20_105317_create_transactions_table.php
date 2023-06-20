@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('wallet_id')->constrained('wallets','id');
             $table->string('description')->nullable();
             $table->double('amount');
-            $table->tinyInteger('status');
             $table->double('charges');
+            $table->tinyInteger('status')->default(0)->comment("0 => pending, 1 => completed, 2 => cancelled");
             $table->timestamps();
         });
     }

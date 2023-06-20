@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('transaction_id')->constrained('transactions', 'id');
             $table->foreignId('deposit_method_id')->constrained('deposit_methods', 'id');
-            $table->string('gateway_payment_id');
+            $table->string('gateway_payment_id')->nullable();
             $table->double('amount');
             $table->string('proof_file')->nullable();
             $table->string('reference_number')->nullable();
