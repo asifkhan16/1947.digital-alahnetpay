@@ -11,6 +11,7 @@
     </div>
     <hr />
     <!--end breadcrumb-->
+    <x-alerts/>
     <div class="row">
         <div class="col-12 col-lg-9 mx-auto">
             <div class="row">
@@ -38,6 +39,7 @@
                         </div>
                     </div>
                 @empty
+                <span>No Deposit methods yet...</span>
                 @endforelse
 
             </div>

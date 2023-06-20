@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DepositMethodController;
 use App\Http\Controllers\Admin\KycController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,4 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+Route::group(['middleware' => ["auth", "role:User"], 'prefix' => 'user'], function () {
+    Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard.index');
+});
 require __DIR__ . '/auth.php';

@@ -15,7 +15,6 @@ class DepositMethodController extends Controller
     public function index()
     {
         $deposit_methods = DepositMethod::all();
-        // dd($deposit_methods->toArray());
         return view('admin.deposit-method.index')->with('deposit_methods', $deposit_methods);
     }
     public function create()
@@ -46,11 +45,10 @@ class DepositMethodController extends Controller
                 'status' => $request->status
             ]);
 
-            return redirect()->route('deposit-methods')->with(['success' => 'true', 'message' => 'Deposit Method Added Successfully.']);
+            return redirect()->route('deposit-methods')->with('success', 'Deposit Method Added Successfully.');
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             Log::error('Deposit method Store Error : ' . $th->getMessage());
-            return back()->with(['success' => 'false', 'message' => 'Operation Faield.']);
+            return back()->with('error', $th->getMessage());
         }
     }
 
@@ -91,11 +89,10 @@ class DepositMethodController extends Controller
 
             DepositMethod::where('id', $method->id)->update($data);
 
-            return redirect()->route('deposit-methods')->with(['success' => 'true', 'message' => 'Deposit Method Updated Successfully.']);
+            return redirect()->route('deposit-methods')->with('success', 'Deposit Method Updated Successfully.');
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             Log::error('Deposit method Update Error : ' . $th->getMessage());
-            return back()->with(['success' => 'false', 'message' => 'Operation Faield.']);
+            return back()->with('error', $th->getMessage());
         }
     }
 
