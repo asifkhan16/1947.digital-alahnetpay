@@ -1,6 +1,14 @@
 <x-layout.app>
-    <h6 class="mb-0 text-uppercase">Pending Kyc Verification</h6>
+      <!--breadcrumb-->
+      <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Pending Kyc Verification</div>
+        <div class="ps-3">
+        </div>
+        <div class="ms-auto">
+        </div>
+    </div>
     <hr />
+    <!--end breadcrumb-->
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">

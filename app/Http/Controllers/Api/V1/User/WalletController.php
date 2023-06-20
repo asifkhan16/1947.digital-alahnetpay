@@ -47,4 +47,22 @@ class WalletController extends Controller
 
         return SuccessResponse('Your wallet has been created successfully.');
     }
+
+    public function local_transfer(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'amount' => 'required|min:1|numeric',
+            'recipient_address' => 'required',
+        ]);
+
+        if ($validator->fails())
+            return ErrorResponse($validator->errors()->first());
+
+        $wallet = Wallet::where('address', $request->recipient_address)->first();
+        if (!$wallet)
+            return ErrorResponse('Wallet not found.');
+
+        Wallet::where('address', $request->recipient_address)->increment('balance', $request->amount);
+        return SuccessResponse('Transfer completed.');
+    }
 }

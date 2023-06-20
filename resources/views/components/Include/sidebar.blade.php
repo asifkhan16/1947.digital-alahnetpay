@@ -27,31 +27,27 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('users.kyc-verification') }}">
-                <div class="parent-icon"><i class='lni lni-users'></i>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"> <i class="bx bx-donate-blood"></i>
                 </div>
                 <div class="menu-title">Kyc Verification</div>
             </a>
+            <ul>
+                <li> <a href="{{ route('users.kyc-verification') }}"><i class='bx bx-radio-circle'></i>All KYC</a>
+                </li>
+                <li> <a href="{{ route('users.kyc-verification.pending') }}"><i class='bx bx-radio-circle'></i>Pending Kyc</a>
+                </li>
+                <li> <a href="{{ route('users.kyc-verification.completed') }}"><i class='bx bx-radio-circle'></i>Completed Kyc</a>
+                </li>
+                <li> <a href="{{ route('users.kyc-verification.canceled') }}"><i class='bx bx-radio-circle'></i>Canceled Kyc</a>
+                </li>
+            </ul>
         </li>
         <li>
-            <a href="{{ route('users.kyc-verification.pending') }}">
-                <div class="parent-icon"><i class='lni lni-use'></i>
+            <a href="{{ route('deposit-methods') }}">
+                <div class="parent-icon"><i class='lni lni-users'></i>
                 </div>
-                <div class="menu-title">Pending</div>
-            </a>
-        </li>
-        <li>
-            <a href="{{ route('users.kyc-verification.completed') }}">
-                <div class="parent-icon"><i class='lni lni-use'></i>
-                </div>
-                <div class="menu-title">Completed</div>
-            </a>
-        </li>
-        <li>
-            <a href="{{ route('users.kyc-verification.canceled') }}">
-                <div class="parent-icon"><i class='lni lni-use'></i>
-                </div>
-                <div class="menu-title">Canceled</div>
+                <div class="menu-title">Deposit Methods</div>
             </a>
         </li>
     </ul>
