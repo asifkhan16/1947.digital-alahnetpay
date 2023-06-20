@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\DepositMethodController;
 use App\Http\Controllers\Admin\KycController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\DashboardController as UserDashboardController;
+use App\Http\Controllers\User\WalletController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,4 +52,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+Route::group(['middleware' => ["auth", "role:User"], 'prefix' => 'user'], function () {
+    Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard.index');
+    Route::get('/wallets', [WalletController::class, 'index'])->name('user.wallets');
+    Route::get('/wallets/send/{wallet}', [WalletController::class, 'send'])->name('user.wallet.send');
+    Route::get('/wallets/send/local-transfer/{wallet}', [WalletController::class, 'createLocal_tranfer'])->name('user.wallet.send.local_transfer');
+    Route::post('/wallets/send/local-transfer/{wallet}', [WalletController::class, 'send_Local_tranfer'])->name('user.wallet.send.local_transfer.submit');
+});
 require __DIR__ . '/auth.php';

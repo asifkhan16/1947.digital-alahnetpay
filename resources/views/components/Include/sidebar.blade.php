@@ -11,6 +11,8 @@
     </div>
     <!--navigation-->
     <ul class="metismenu" id="menu">
+        {{-- admin links --}}
+        @role('Admin')
         <li>
             <a href="{{ route('dashboard.index') }}">
                 <div class="parent-icon"><i class='bx bx-home-alt'></i>
@@ -50,6 +52,25 @@
                 <div class="menu-title">Deposit Methods</div>
             </a>
         </li>
+        @endrole
+
+        {{-- user links --}}
+        @role('User')
+        <li>
+            <a href="{{ route('user.dashboard.index') }}">
+                <div class="parent-icon"><i class='bx bx-home-alt'></i>
+                </div>
+                <div class="menu-title">Dashboard</div>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('user.wallets') }}">
+                <div class="parent-icon"><i class='bx bx-home-alt'></i>
+                </div>
+                <div class="menu-title">Wallets</div>
+            </a>
+        </li>
+        @endrole
     </ul>
     <!--end navigation-->
 </div>
