@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('wallet/transfer/local', [WalletController::class, 'local_transfer']);
 
     //transactions
-    Route::get('/deposit_methods', [DepositController::class, 'index']);
+    Route::get('/deposit_methods',         [DepositController::class, 'index']);
     Route::post('/choose_depostit_method', [DepositController::class, 'chooseDepositMethod']);
+    Route::post('/bankDeposit',            [DepositController::class, 'BankDeposit']);
 });

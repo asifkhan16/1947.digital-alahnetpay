@@ -94,12 +94,12 @@ class DepositController extends Controller
                 return ErrorResponse('Direct Access not allow.');
             
             if($choose_deposit->deposit_method_id != 1)
-                return ErrorResponse('Worong selection of deposit method.');
+                return ErrorResponse('Wrong selection of deposit method.');
             
             $wallet = Wallet::find($choose_deposit->wallet_id);
             if(!$wallet)
                 return ErrorResponse('Wallet not found');
-            $image = $request->file('image')->store('/Transaction Proof/Images', 'public');
+            $image = $request->file('proof_file')->store('/Transaction Proof/Images', 'public');
             $image_url = Storage::disk('public')->url($image);
             DB::beginTransaction();
 
@@ -107,7 +107,7 @@ class DepositController extends Controller
                     'user_id' => Auth::id(),
                     'wallet_id' => $choose_deposit->wallet_id,
                     'description' => 'Bank transfer',
-                    'amount' => '+'.$choose_deposit->amount,
+                    'credit' => '+'.$choose_deposit->amount,
                     'status' => 0,
                     'charges' => $choose_deposit->fee
                 ]);
@@ -115,20 +115,27 @@ class DepositController extends Controller
                 TransactionDetail::create([
                     'transaction_id' => $transaction->id,
                     'deposit_method_id' => $choose_deposit->deposit_method_id,
-                    'amount' => $transaction->amount,
+                    'amount' => $transaction->credit,
                     'proof_file' => $image_url,
                     'reference_number' => $request->reference_number
                 ]);
 
                 Wallet::where('id',$wallet->wallet_id)->update([
-                    'credit' => $wallet->balance + $choose_deposit->amount
+                    'balance' => $wallet->balance + $choose_deposit->amount
                 ]);
 
-                
+                ChooseDepositMethod::where('wallet_id',$wallet->id)->update([
+                    'deposit_method_id' => null,
+                    'amount' => 0.0,
+                    'fee' => 0.0
+                ]);
             DB::commit();
+            $data['message'] = 'Amount deposit successfully.';
+            return SuccessResponse($data);
         } catch (\Throwable $th) {
             DB::rollBack();
             Log::error('Bank Deposit error : '.$th->getMessage());
+            return ErrorResponse($th->getMessage());
         }
     }
 }
