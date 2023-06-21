@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/kyc-verification',    [KycVerificationController::class, 'store']);
 
     // wallet routes
+    Route::get('currencies', [WalletController::class, 'getCurrencies']);
     Route::get('wallet/show', [WalletController::class, 'show']);
     Route::post('wallet/store', [WalletController::class, 'store']);
     Route::post('wallet/transfer/local', [WalletController::class, 'local_transfer']);

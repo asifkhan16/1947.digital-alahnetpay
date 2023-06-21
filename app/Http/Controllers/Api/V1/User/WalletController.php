@@ -108,4 +108,9 @@ class WalletController extends Controller
         }
 
     }
+
+    public function getCurrencies(){
+        $data['currencies'] = Currency::all();
+        return SuccessResponse($data);
+    }
 }
