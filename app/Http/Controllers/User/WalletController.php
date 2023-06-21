@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\Wallet;
+use App\Models\Transaction;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
 
 class WalletController extends Controller
@@ -51,6 +52,7 @@ class WalletController extends Controller
             Wallet::where('id', $wallet->id)->decrement('balance', ($request->amount + $charges));
             // Transaction for sender
             Transaction::create([
+                'transaction_unqiue_id' => Str::uuid(),
                 'user_id' => Auth::id(),
                 'wallet_id' => $wallet->id,
                 'description' => $request->description,
@@ -60,6 +62,7 @@ class WalletController extends Controller
             ]);
             // Transaction for Reciever
             Transaction::create([
+                'transaction_unqiue_id' => Str::uuid(),
                 'user_id' => $recipient_wallet->user_id,
                 'wallet_id' => $recipient_wallet->id,
                 'description' => 'Amount recieved',

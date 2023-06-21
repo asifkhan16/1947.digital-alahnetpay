@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users','id')->onDelete('cascade');
             $table->foreignId('wallet_id')->nullable()->constrained('wallets','id')->onDelete('SET NULL');
-            $table->foreignId('deposit_method_id')->constrained('deposit_methods','id');
+            $table->foreignId('deposit_method_id')->nullable()->constrained('deposit_methods','id');
             $table->double('amount')->default(0.0);
             $table->double('fee')->default(0.0);
             $table->timestamps();

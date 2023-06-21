@@ -29,11 +29,13 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/kyc-verification',    [KycVerificationController::class, 'store']);
 
     // wallet routes
+    Route::get('currencies', [WalletController::class, 'getCurrencies']);
     Route::get('wallet/show', [WalletController::class, 'show']);
     Route::post('wallet/store', [WalletController::class, 'store']);
     Route::post('wallet/transfer/local', [WalletController::class, 'local_transfer']);
 
     //transactions
-    Route::get('/deposit_methods', [DepositController::class, 'index']);
+    Route::get('/deposit_methods',         [DepositController::class, 'index']);
     Route::post('/choose_depostit_method', [DepositController::class, 'chooseDepositMethod']);
+    Route::post('/bankDeposit',            [DepositController::class, 'BankDeposit']);
 });
