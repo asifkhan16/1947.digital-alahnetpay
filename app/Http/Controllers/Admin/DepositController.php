@@ -20,4 +20,13 @@ class DepositController extends Controller
         return view('admin.deposits.index')->with('deposits',$deposits);
 
     }
+
+    public function ApproveOrRejectTransaction($transaction_id, $status){
+        // dd($transaction_id);
+        Transaction::where('id',$transaction_id)->update([
+            'status' => $status
+        ]);
+
+        return back()->with('success','Action perform successfully.');
+    }
 }

@@ -55,7 +55,18 @@
                                        <span>Cancelled</span>
                                    @endif
                                </td>
-                               <td>N/A</td>
+                               <td>
+                                    @if ($deposit->transaction_detail->proof_file != null && $deposit->status == 0)
+                                        <a href="{{ route('deposit.update.status',['deposit' => $deposit->id,'status' => 1]) }}" 
+                                         class="btn btn-sm btn-warning">Approve
+                                        </a>
+                                        <a href="{{ route('deposit.update.status',['deposit' => $deposit->id,'status' => 2]) }}"
+                                        class="btn btn-sm btn-danger">Cancel
+                                        </a>
+                                    @else
+                                        N/A
+                                    @endif 
+                               </td>
                            </tr>
                        @endforeach
                    </tbody>
