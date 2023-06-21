@@ -6,6 +6,7 @@ use Validator;
 use RuntimeException;
 use App\Models\Wallet;
 use App\Models\Transaction;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\DepositMethod;
 use App\Models\TransactionDetail;
@@ -103,11 +104,13 @@ class DepositController extends Controller
             $image_url = Storage::disk('public')->url($image);
             DB::beginTransaction();
 
+            // return Str::uuid(); 
                 $transaction = Transaction::create([
+                    'transaction_unqiue_id' => Str::uuid(),
                     'user_id' => Auth::id(),
                     'wallet_id' => $choose_deposit->wallet_id,
-                    'description' => 'Bank transfer',
-                    'credit' => '+'.$choose_deposit->amount,
+                    'description' => 'Deposit Funds via Bank Transfer',
+                    'credit' => $choose_deposit->amount,
                     'status' => 0,
                     'charges' => $choose_deposit->fee
                 ]);

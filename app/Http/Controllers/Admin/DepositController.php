@@ -16,7 +16,7 @@ class DepositController extends Controller
             $deposits = Transaction::where('credit', '>', 0)->where('status',$status)->get();
         }
 
-        return view
+        return view('admin.deposits.index')->with('deposits',$deposits);
 
     }
 }
