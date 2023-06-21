@@ -31,14 +31,25 @@
                        @foreach ($deposits as $deposit)
                            <tr>
                                <td>{{ $deposit->id }}</td>
-                               <td>{{ $kyc->user->name }}</td>
-                               <td><a href="{{ $kyc->document_front }}" target="blank"
-                                       class="btn btn-sm btn-primary">Preview</a></td>
-                               <td><a href="{{ $kyc->document_back }}" class="btn btn-sm btn-primary">Preview</a></td>
+                               <td>{{ $deposit->created_at }}</td>
+                               <td>{{ $deposit->transaction_unqiue_id }}</td>
+                               <td>{{ $deposit->description }}</td>
+                               <td>{{ $deposit->user->name }}</td>
+                               <td>{{ $deposit->wallet->address }}</td>
                                <td>
-                                   @if ($kyc->status == 0)
+                                    @if ($deposit->transaction_detail->proof_file)
+                                        <a href="{{ $deposit->transaction_detail->proof_file }}" target="blank"
+                                        class="btn btn-sm btn-primary">Preview
+                                        </a>
+                                    @else
+                                        N/A
+                                    @endif
+                                </td>
+                               <td>{{ $deposit->credit . " " . $deposit->wallet->currency->code }}</td>
+                               <td>
+                                   @if ($deposit->status == 0)
                                        <span>Pending</span>
-                                   @elseif ($kyc->status == 1)
+                                   @elseif ($deposit->status == 1)
                                        <span>Completed</span>
                                    @else
                                        <span>Cancelled</span>

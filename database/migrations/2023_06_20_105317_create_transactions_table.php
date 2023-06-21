@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->uuid('transaction_unqiue_id')->unique();
             $table->foreignId('user_id')->constrained('users','id');
             $table->foreignId('wallet_id')->constrained('wallets','id');
             $table->string('description')->nullable();

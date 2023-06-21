@@ -11,11 +11,12 @@ class DepositController extends Controller
     public function index($status){
         if($status == -1){
 
-            $deposits = Transaction::where('credit', '>', 0)->get();
+            $deposits = Transaction::where('credit', '>', 0)->with('wallet.currency','transaction_detail')->get();
         }else{
-            $deposits = Transaction::where('credit', '>', 0)->where('status',$status)->get();
+            $deposits = Transaction::where('credit', '>', 0)->with('wallet.currency','transaction_detail')->where('status',$status)->get();
         }
 
+        // dd($deposits->toArray());
         return view('admin.deposits.index')->with('deposits',$deposits);
 
     }

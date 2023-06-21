@@ -123,9 +123,9 @@ class DepositController extends Controller
                     'reference_number' => $request->reference_number
                 ]);
 
-                Wallet::where('id',$wallet->wallet_id)->update([
-                    'balance' => $wallet->balance + $choose_deposit->amount
-                ]);
+                // Wallet::where('id',$wallet->id)->update([
+                //     'balance' => $wallet->balance + $transaction->credit
+                // ]);
 
                 ChooseDepositMethod::where('wallet_id',$wallet->id)->update([
                     'deposit_method_id' => null,
