@@ -16,4 +16,8 @@ class Wallet extends Model
         'address',
         'balance'
     ];
+
+    public function currency(){
+        return $this->belongsTo(Currency::class, 'currency_id','id');
+    }
 }
