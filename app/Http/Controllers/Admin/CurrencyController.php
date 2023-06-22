@@ -12,4 +12,8 @@ class CurrencyController extends Controller
         $currencies = Currency::all();
         return view('admin.currencies.index')->with('currencies',$currencies);
     }
+
+    public function create(){
+        return view('admin.currencies.create');
+    }
 }
