@@ -23,7 +23,7 @@ class WalletController extends Controller
     }
 
     public function store(Request $request)
-    {
+{
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3|max:50',
             'currency_id' => 'required|numeric'
@@ -38,7 +38,7 @@ class WalletController extends Controller
         $timestamp = Carbon::now()->timestamp;
         $timestamp = substr($timestamp, 0, -2);
 
-        $wallet_address = $currency->code . random_int(10, 99) . 'NETP' . $timestamp . 'U' . Auth::id();
+        $wallet_address = $currency->country_code . random_int(10, 99) . 'NETP' . $timestamp . 'U' . (10000 + Auth::id());
 
         Wallet::create([
             'user_id' => Auth::id(),

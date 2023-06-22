@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\User\CardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\User\Auth\AuthController;
@@ -38,4 +39,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/deposit_methods',         [DepositController::class, 'index']);
     Route::post('/choose_depostit_method', [DepositController::class, 'chooseDepositMethod']);
     Route::post('/bankDeposit',            [DepositController::class, 'BankDeposit']);
+
+
+    Route::post('/card/store',            [CardController::class, 'store']);
+
 });

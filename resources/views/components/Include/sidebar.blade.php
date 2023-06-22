@@ -71,7 +71,7 @@
         </li>
         <li>
             <a href="{{ route('currencies.index') }}">
-                <div class="parent-icon"><i class='lni lni-users'></i>
+                <div class="parent-icon"><i class='lni lni-money-protection'></i>
                 </div>
                 <div class="menu-title">Currencies</div>
             </a>
