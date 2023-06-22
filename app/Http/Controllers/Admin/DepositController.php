@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Wallet;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 
 class DepositController extends Controller
 {
@@ -23,10 +26,31 @@ class DepositController extends Controller
 
     public function ApproveOrRejectTransaction($transaction_id, $status){
         // dd($transaction_id);
-        Transaction::where('id',$transaction_id)->update([
-            'status' => $status
-        ]);
+        $transaction = Transaction::find($transaction_id);
+        
+        try {
+            $wallet = Wallet::find($transaction->wallet_id);
+            // dd($wallet);
+            DB::beginTransaction();
 
-        return back()->with('success','Action perform successfully.');
+                $transaction->update([
+                    'status' => $status
+                ]);
+
+                if($status == 1){
+                    $wallet->update([
+                        'balance' => $transaction->credit + $wallet->balance,
+                    ]);
+                }
+            DB::commit();
+            return back()->with('success','Action perform successfully.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            Log::error('Approve or Reject Transaction Error : '.$th->getMessage());
+            return back()->with('error',$th->getMessage());
+        }
+        
+
+        
     }
 }
