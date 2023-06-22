@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Currency;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
@@ -33,7 +34,7 @@ class CurrencyController extends Controller
             'country_name' => $request->country_name,
             'country_code' => $request->country_code,
             'currency_code' => $request->currency_code,
-            'image' => $image_url
+            'flag_url' => $image_url
         ]);
 
         return redirect()->route('currencies.index')->with('success','Currency Created Succssfully');
@@ -41,5 +42,30 @@ class CurrencyController extends Controller
 
     public function edit(Currency $currency){
         return view('admin.currencies.edit')->with('currency',$currency);
+    }
+
+    public function update(Request $request, Currency $currency){
+        $request->validate([
+            'country_name' => 'required',
+            'country_code' => 'required|'.Rule::unique('currencies')->ignore($currency->id),
+            'currency_code' => 'required|'.Rule::unique('currencies')->ignore($currency->id),
+            'image' => 'required'
+        ]);
+
+        $data = [
+            'country_name' => $request->country_name,
+            'country_code' => $request->country_code,
+            'currency_code' => $request->currency_code,
+        ];
+
+        if($request->hasFile('image')){
+            $image = $request->file('image')->store('/Countries/Images', 'public');
+            $image_url = Storage::disk('public')->url($image);
+            $data['flag_url'] = $image_url;
+        }
+        
+        Currency::where('id',$currency->id)->update($data);
+
+        return redirect()->route('currencies.index')->with('success','Currency Updated Succssfully');
     }
 }

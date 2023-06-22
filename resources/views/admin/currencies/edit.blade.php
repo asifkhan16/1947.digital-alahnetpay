@@ -16,6 +16,7 @@
                 <div class="card-body p-5">
                     <form action="{{ route('currencies.update',$currency) }}" method="POST" class="row g-3" enctype="multipart/form-data">
                         @csrf
+                        @method("PUT")
                         <div class="col-12">
                             <label for="country_name" class="form-label">Country Name</label>
                             <input type="text" class="form-control" id="country_name" value="{{ $currency->country_name }}" placeholder="United State Of America" name="country_name">
