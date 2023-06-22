@@ -38,4 +38,8 @@ class CurrencyController extends Controller
 
         return redirect()->route('currencies.index')->with('success','Currency Created Succssfully');
     }
+
+    public function edit(Currency $currency){
+        return view('admin.currencies.edit')->with('currency',$currency);
+    }
 }
