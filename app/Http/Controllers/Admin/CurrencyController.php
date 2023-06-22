@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Wallet;
 use App\Models\Currency;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -67,5 +68,15 @@ class CurrencyController extends Controller
         Currency::where('id',$currency->id)->update($data);
 
         return redirect()->route('currencies.index')->with('success','Currency Updated Succssfully');
+    }
+
+    public function destroy(Currency $currency){
+        $is_curreny_used = Wallet::where('currency_id',$currency->id)->first();
+        
+        if($is_curreny_used)
+            return redirect()->route('currencies.index')->with('error',"Currency is already used you can't delete it");
+            
+        $currency->delete();
+        return redirect()->route('currencies.index')->with('success','Currency deleted Succssfully');
     }
 }

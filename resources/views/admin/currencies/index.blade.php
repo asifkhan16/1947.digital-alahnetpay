@@ -35,7 +35,12 @@
                                 <td>
                                     <div class="d-flex order-actions">
                                         <a href="{{ route('currencies.edit',$currency) }}" class=""><i class='bx bxs-edit'></i></a>
-                                        <a href="{{ route('currencies.destroy',$currency) }}" class="ms-3"><i class='bx bxs-trash'></i></a>
+                                        <form action="{{  route('currencies.destroy',$currency) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            {{-- <button type="submit" class="ms-3" style="border: none"><i class='bx bxs-trash'></i></button> --}}
+                                            <a type="submit" href="javascript:void(0)" onclick="event.preventDefault(); this.closest('form').submit();" class="ms-3"><i class='bx bxs-trash'></i></a>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
