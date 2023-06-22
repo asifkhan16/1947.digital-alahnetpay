@@ -1,17 +1,22 @@
 <x-layout.app>
-    <h6 class="mb-0 text-uppercase">Currencies</h6>
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Currencies</div>
+        <div class="ps-3">
+        </div>
+        <div class="ms-auto">
+            <a href="{{ route('currencies.create') }}" class="btn btn-light px-3"><i
+                    class='lni lni-circle-plus'></i>Add New Currency</a>
+        </div>
+    </div>
     <hr />
+    <!--end breadcrumb-->
+    <x-alerts/>
     <div class="card">
         <div class="card-body">
-            <div class="d-lg-flex align-items-center mb-4 gap-3">
-                <div class="position-relative">
-                    <input type="text" class="form-control ps-5 radius-30" placeholder="Search Order"> <span class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search"></i></span>
-                </div>
-              <div class="ms-auto"><a href="javascript:;" class="btn btn-light radius-30 mt-2 mt-lg-0"><i class="bx bxs-plus-square"></i>Add New Currency</a></div>
-            </div>
             <div class="table-responsive">
-                <table class="table mb-0">
-                    <thead class="table-light">
+                <table id="currencies_datatable" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
                         <tr>
                             <th>Id</th>
                             <th>Country Name</th>
@@ -21,18 +26,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>David Buckley</td>
-                            <td>$485.20</td>
-                            <td>June 10, 2020</td>
-                            <td>
-                                <div class="d-flex order-actions">
-                                    <a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-                                    <a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-                                </div>
-                            </td>
-                        </tr>
+                        @foreach ($currencies as $currency)
+                            <tr>
+                                <td>{{ $currency->id }}</td>
+                                <td>{{ $currency->country_name }}</td>
+                                <td>{{ $currency->country_code }}</td>
+                                <td>{{ $currency->currency_code }}</td>
+                                <td>
+                                    <div class="d-flex order-actions">
+                                        <a href="{{ route('currencies.edit',$currency) }}" class=""><i class='bx bxs-edit'></i></a>
+                                        <a href="{{ route('currencies.destroy',$currency) }}" class="ms-3"><i class='bx bxs-trash'></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                        
                     </tbody>
                 </table>
             </div>
