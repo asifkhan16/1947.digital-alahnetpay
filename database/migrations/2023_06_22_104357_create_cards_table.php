@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('wallet_id')->constrained('wallets','id');
             $table->string('card_number');
             $table->integer('cvc');
-            $table->date('issue_date');
-            $table->date('expiry_date');
+            $table->date('issue_date')->nullable();
+            $table->date('expiry_date')->nullable();
             $table->tinyInteger('is_activated')->default(0)->comment("0 > not activated | 1 => Activated");
             $table->tinyInteger('is_freeze')->default(0)->comment("0 > not Freeze | 1 => Freezed");
             $table->tinyInteger('status')->default(0)->comment("0 > requested | 1 => Approved | 2 => Cancelled");
