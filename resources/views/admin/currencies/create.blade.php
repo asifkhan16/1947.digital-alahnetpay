@@ -18,22 +18,22 @@
                         @csrf
                         <div class="col-12">
                             <label for="country_name" class="form-label">Country Name</label>
-                            <input type="text" class="form-control" id="country_name" name="country_name">
+                            <input type="text" class="form-control" id="country_name" value="{{ old('country_name') }}" placeholder="United State Of America" name="country_name">
                             @error('country_name') <span class="text-warning">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-12">
                             <label for="country_code" class="form-label">Country Code</label>
-                            <input type="text" class="form-control" placeholder="0.00" id="country_code" name="country_code">
+                            <input type="text" class="form-control" placeholder="US" value="{{ old('country_code') }}" id="country_code" name="country_code">
                             @error('country_code') <span class="text-warning">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-12">
                             <label for="currency_code" class="form-label">Currency Code</label>
-                            <input type="text" class="form-control" placeholder="0.00" id="currency_code" name="currency_code">
+                            <input type="text" class="form-control" placeholder="USD" value="{{ old('currency_code') }}" id="currency_code" name="currency_code">
                             @error('currency_code') <span class="text-warning">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-12">
                             <label for="image" class="form-label">Country Flag</label>
-                            <input type="file" class="form-control" placeholder="0.00" id="image" name="image">
+                            <input type="file" class="form-control" value={{ old('image') }} id="image" name="image">
                             @error('image') <span class="text-warning">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-12 mt-4 d-flex justify-content-end">
