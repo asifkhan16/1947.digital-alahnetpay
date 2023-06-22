@@ -69,6 +69,13 @@
                 <div class="menu-title">Deposit Methods</div>
             </a>
         </li>
+        <li>
+            <a href="{{ route('currencies.index') }}">
+                <div class="parent-icon"><i class='lni lni-users'></i>
+                </div>
+                <div class="menu-title">Currencies</div>
+            </a>
+        </li>
         @endrole
 
         {{-- user links --}}
