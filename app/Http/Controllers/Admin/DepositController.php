@@ -11,12 +11,12 @@ use App\Http\Controllers\Controller;
 
 class DepositController extends Controller
 {
-    public function index($status){
-        if($status == -1){
+    public function index(){
+        if(request()->input('status') == -1){
 
             $deposits = Transaction::where('credit', '>', 0)->with('wallet.currency','transaction_detail')->get();
         }else{
-            $deposits = Transaction::where('credit', '>', 0)->with('wallet.currency','transaction_detail')->where('status',$status)->get();
+            $deposits = Transaction::where('credit', '>', 0)->with('wallet.currency','transaction_detail')->where('status',request()->input('status'))->get();
         }
 
         // dd($deposits->toArray());
@@ -24,9 +24,9 @@ class DepositController extends Controller
 
     }
 
-    public function ApproveOrRejectTransaction($transaction_id, $status){
+    public function ApproveOrRejectTransaction(){
         // dd($transaction_id);
-        $transaction = Transaction::find($transaction_id);
+        $transaction = Transaction::find(request()->input('transaction_id'));
         
         try {
             $wallet = Wallet::find($transaction->wallet_id);
@@ -34,10 +34,10 @@ class DepositController extends Controller
             DB::beginTransaction();
 
                 $transaction->update([
-                    'status' => $status
+                    'status' => request()->input('status')
                 ]);
 
-                if($status == 1){
+                if(request()->input('status') == 1){
                     $wallet->update([
                         'balance' => $transaction->credit + $wallet->balance,
                     ]);
