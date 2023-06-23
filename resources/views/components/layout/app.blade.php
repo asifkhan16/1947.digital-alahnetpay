@@ -21,7 +21,54 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link href="{{ asset('dashtreme/assets/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('dashtreme/assets/css/icons.css') }}" rel="stylesheet">
-    <title>AlahnetPay</title>
+    <title>AlphanetPay</title>
+    <style>
+        .glass-card {
+            width: 350px;
+            height: 220px;
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .glass-content {
+            text-align: center;
+        }
+
+        .card-logo img {
+            width: 60px;
+            height: auto;
+        }
+
+        .card-number span {
+            font-size: 20px;
+            letter-spacing: 2px;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .card-holder span,
+        .card-expiry span {
+            font-size: 14px;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-holder span {
+            text-transform: uppercase;
+        }
+    </style>
 </head>
 
 <body class="bg-theme bg-theme1">
@@ -116,7 +163,6 @@
         $(function() {
             $(".knob").knob();
         });
-
     </script>
     {{-- <script src="{{ asset('dashtreme/assets/js/index.js') }}"></script> --}}
     <!--app JS-->

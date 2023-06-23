@@ -127,6 +127,13 @@
 
             </ul>
         </li>
+        <li>
+            <a href="{{ route('user.card') }}">
+                <div class="parent-icon"><i class='lni lni-credit-cards'></i>
+                </div>
+                <div class="menu-title">AlphaCard</div>
+            </a>
+        </li>
         @endrole
     </ul>
     <!--end navigation-->

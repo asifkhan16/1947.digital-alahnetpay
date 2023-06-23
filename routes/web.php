@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DepositMethodController;
 use App\Http\Controllers\Admin\KycController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\CardController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\EcsrowController;
 use App\Http\Controllers\User\WalletController;
@@ -55,6 +56,10 @@ Route::group(['middleware' => ["auth", "role:User"], 'prefix' => 'user'], functi
     Route::get('/escrow/reject/{escrow}', [EcsrowController::class, 'rejectEscrow'])->name('user.escrow.reject');
     Route::get('/escrow/release/{escrow}', [EcsrowController::class, 'releaseEscrow'])->name('user.escrow.release');
 
+    // aplhaCard
+    Route::get('/alphacard',[CardController::class,'index'])->name('user.card');
+    Route::get('/alphacard/create',[CardController::class,'create'])->name('user.card.create');
+    Route::post('/alphacard/store',[CardController::class,'store'])->name('user.card.store');
 
 });
 require __DIR__ . '/auth.php';

@@ -14,14 +14,17 @@ class CurrencySeeder extends Seeder
     public function run(): void
     {
         Currency::create([
+            'country_name' => 'America',
             'country_code' => "US",
             'currency_code' => 'USD'
         ]);
         Currency::create([
+            'country_name' => 'Europe',
             'country_code' => "EU",
             'currency_code' => 'EUR'
         ]);
         Currency::create([
+            'country_name' => 'Pakistan',
             'country_code' => "PK",
             'currency_code' => 'PKR'
         ]);
