@@ -18,7 +18,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="chip chip-md bg-light text-white">
-                                <img src="{{ asset('dashtreme/assets/flags/1x1/ae.svg') }}">{{ $wallet->name }}
+                                <img src="{{ $wallet->currency->flag_url ? $wallet->currency->flag_url : asset('dashtreme/assets/flags/1x1/ae.svg') }}">{{ $wallet->name }}
                             </div>
                             <div class="ps-3">
                                 <p class="card-text text">Balance <span class="badge bg-success"
