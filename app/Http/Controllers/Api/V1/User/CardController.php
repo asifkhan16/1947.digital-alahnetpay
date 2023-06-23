@@ -34,10 +34,7 @@ class CardController extends Controller
         $card_number = $this->generateCardNumber();
         $cvc = random_int(100,999);
 
-        $current_date = Carbon::now();
-        $expiry_date = $current_date->addYear()->subDay();
-        $expiry_date = $expiry_date->format('Y-m-d');
-        $issue_date = $current_date->format('Y-m-d');
+        
 
         try {
             Card::create([
@@ -45,8 +42,6 @@ class CardController extends Controller
                 'wallet_id' => $wallet->id,
                 'card_number' => $card_number,
                 'cvc' => $cvc,
-                'issue_date' => $issue_date,
-                'expiry_date' => $expiry_date,
                 'is_activated' => 0,
                 'is_freeze' => 0,
                 'status' => 0,

@@ -58,7 +58,24 @@
                 </li>
                 <li> <a href="{{ route('deposit.index',['status' => 1]) }}"><i class='bx bx-radio-circle'></i>Completed Deposits</a>
                 </li>
-                <li> <a href="{{ route('deposit.index',['status' => 2]) }}"><i class='bx bx-radio-circle'></i>Canceled Deposits</a>
+                <li> <a href="{{ route('deposit.index',['status' => 2]) }}"><i class='bx bx-radio-circle'></i>Cancelled Deposits</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"> <i class="bx bx-donate-blood"></i>
+                </div>
+                <div class="menu-title">Cards</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('card.index',['status' => -1]) }}"><i class='bx bx-radio-circle'></i>All Cards</a>
+                </li>
+                <li> <a href="{{ route('card.index',['status' => 0]) }}"><i class='bx bx-radio-circle'></i>Requested Cards</a>
+                </li>
+                <li> <a href="{{ route('card.index',['status' => 1]) }}"><i class='bx bx-radio-circle'></i>Approved Cards</a>
+                </li>
+                <li> <a href="{{ route('card.index',['status' => 2]) }}"><i class='bx bx-radio-circle'></i>Cancelled Cards</a>
                 </li>
             </ul>
         </li>

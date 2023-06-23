@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CardController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\KycController;
 use App\Http\Controllers\Admin\UsersController;
@@ -30,9 +31,13 @@ Route::group(['middleware' => ["auth", 'role:Admin'], 'prefix' => "admin"], func
 
     //Deposit Routes
 
-    Route::get('/deposits/{status}', [DepositController::class, 'index'])->name('deposit.index');
-    Route::get('/deposits/{deposit}/{status}', [DepositController::class, 'ApproveOrRejectTransaction'])->name('deposit.update.status');
+    Route::get('/deposits', [DepositController::class, 'index'])->name('deposit.index');
+    Route::get('/deposits/{transaction}', [DepositController::class, 'ApproveOrRejectTransaction'])->name('deposit.update.status');
 
     //Currencies Routes
     Route::resource('/currencies', CurrencyController::class);
+
+    //Card Routes
+    Route::get('/cards', [CardController::class, 'index'])->name('card.index');
+    Route::get('/cards/{card}', [CardController::class, 'ApproveOrRejectCard'])->name('card.update.status');
 });
