@@ -39,25 +39,25 @@
                                 <td>{{ $card->expiry_date }}</td>
                                 <td>
                                     @if ($card->is_activated == 1)
-                                        <span class="badge bg-light text-white">Activated</span>
+                                        <span class="badge bg-light text-success">Activated</span>
                                     @else
-                                        <span class="badge bg-light text-white">Not Activated</span>
+                                        <span class="badge bg-light text-info">Not Activated</span>
                                     @endif
                                 </td>
                                 <td>
                                     @if ($card->is_freeze == 1)
-                                    <span class="badge bg-light text-white">Freezed</span>
+                                    <span class="badge bg-light text-success">Freezed</span>
                                     @else
-                                    <span class="badge bg-light text-white">Not Freezed</span>
+                                    <span class="badge bg-light text-info">Not Freezed</span>
                                     @endif
                                 </td>
                                 <td>
                                     @if ($card->status == 0)
-                                        <span class="badge bg-light text-white">Requested</span>
+                                        <span class="badge bg-light text-primary">Requested</span>
                                     @elseif($card->status == 1)
-                                        <span class="badge bg-light text-white">Approved</span>
+                                        <span class="badge bg-light text-info">Approved</span>
                                     @elseif($card->status == 2)
-                                        <span class="badge bg-light text-white">Cancelled</span>
+                                        <span class="badge bg-light text-danger">Cancelled</span>
                                     @endif
                                 </td>
                                 <td>
