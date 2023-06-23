@@ -1,13 +1,15 @@
 <?php
 
-use App\Http\Controllers\Api\V1\User\CardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\V1\User\Auth\AuthController;
-use App\Http\Controllers\Api\V1\User\DepositController;
-use App\Http\Controllers\Api\V1\User\KycVerificationController;
-use App\Http\Controllers\Api\V1\User\ProfileController;
+use App\Http\Controllers\Api\V1\User\CardController;
+use App\Http\Controllers\Api\V1\User\EcsrowController;
+use App\Http\Controllers\Api\V1\User\EscrowController;
 use App\Http\Controllers\Api\V1\User\WalletController;
+use App\Http\Controllers\Api\V1\User\DepositController;
+use App\Http\Controllers\Api\V1\User\ProfileController;
+use App\Http\Controllers\Api\V1\User\Auth\AuthController;
+use App\Http\Controllers\Api\V1\User\KycVerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,5 +45,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
 
     Route::post('/card/store',            [CardController::class, 'store']);
+
+    //Escrow Route
+    Route::post('/escrow', [EcsrowController::class, 'store']);
 
 });
