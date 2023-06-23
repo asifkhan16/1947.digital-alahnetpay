@@ -35,13 +35,13 @@
                 <div class="menu-title">Kyc Verification</div>
             </a>
             <ul>
-                <li> <a href="{{ route('users.kyc-verification') }}"><i class='bx bx-radio-circle'></i>All KYC</a>
+                <li> <a href="{{ route('kyc_verification.index',['status' => -1]) }}"><i class='bx bx-radio-circle'></i>All KYC</a>
                 </li>
-                <li> <a href="{{ route('users.kyc-verification.pending') }}"><i class='bx bx-radio-circle'></i>Pending Kyc</a>
+                <li> <a href="{{ route('kyc_verification.index',['status' => 0]) }}"><i class='bx bx-radio-circle'></i>Pending Kyc</a>
                 </li>
-                <li> <a href="{{ route('users.kyc-verification.completed') }}"><i class='bx bx-radio-circle'></i>Completed Kyc</a>
+                <li> <a href="{{ route('kyc_verification.index',['status' => 1]) }}"><i class='bx bx-radio-circle'></i>Completed Kyc</a>
                 </li>
-                <li> <a href="{{ route('users.kyc-verification.canceled') }}"><i class='bx bx-radio-circle'></i>Canceled Kyc</a>
+                <li> <a href="{{ route('kyc_verification.index',['status' => 2]) }}"><i class='bx bx-radio-circle'></i>Cancelled Kyc</a>
                 </li>
             </ul>
         </li>

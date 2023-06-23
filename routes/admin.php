@@ -16,10 +16,9 @@ Route::group(['middleware' => ["auth", 'role:Admin'], 'prefix' => "admin"], func
 
     Route::get('/users', [UsersController::class, 'index'])->name('users.index');
     // kyc's routes
-    Route::get('/users/kyc-verification', [KycController::class, 'index'])->name('users.kyc-verification');
-    Route::get('/users/kyc-verification/pending', [KycController::class, 'kyc_pending'])->name('users.kyc-verification.pending');
-    Route::get('/users/kyc-verification/canceled', [KycController::class, 'kyc_canceled'])->name('users.kyc-verification.canceled');
-    Route::get('/users/kyc-verification/completed', [KycController::class, 'kyc_completed'])->name('users.kyc-verification.completed');
+    
+    Route::get('/kyc-verification', [KycController::class, 'index'])->name('kyc_verification.index');
+    Route::get('/kyc-verification/{kyc}', [KycController::class, 'ApproveOrRejectKyc'])->name('kyc_verification.update.status');
 
     // deposit methods routes
     Route::get('/deposit-methods', [DepositMethodController::class, 'index'])->name('deposit-methods');
