@@ -60,8 +60,8 @@
                         <div class="col-12">
                             <label for="type" class="form-label">Escrow</label>
                             <select id="type" class="form-select" name="type">
-                                <option value="1" selected>Seller</option>
-                                <option value="2">Buyer</option>
+                                <option value="1" selected>Request Assistance</option>
+                                <option value="2">Send Money</option>
                             </select>
                             @error('type') <span class="text-warning">{{ $message }}</span> @enderror
 

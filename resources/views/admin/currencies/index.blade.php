@@ -1,7 +1,7 @@
 <x-layout.app>
     <!--breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Currencies</div>
+        <div class="breadcrumb-title pe-3">Cards</div>
         <div class="ps-3">
         </div>
         <div class="ms-auto">
@@ -45,7 +45,7 @@
                                 </td>
                             </tr>
                         @endforeach
-                        
+
                     </tbody>
                 </table>
             </div>

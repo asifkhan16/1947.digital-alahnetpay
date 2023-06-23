@@ -1,12 +1,12 @@
 <x-layout.app>
     <!--breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Currencies</div>
+        <div class="breadcrumb-title pe-3">Cards</div>
         <div class="ps-3">
         </div>
         <div class="ms-auto">
-            <a href="{{ route('currencies.create') }}" class="btn btn-light px-3"><i
-                    class='lni lni-circle-plus'></i>Add New Currency</a>
+            {{-- <a href="{{ route('currencies.create') }}" class="btn btn-light px-3"><i
+                    class='lni lni-circle-plus'></i>Add New Currency</a> --}}
         </div>
     </div>
     <hr />
@@ -63,7 +63,7 @@
                                 <td>
                                     <div class="d-flex order-action">
                                         @if($card->status == 0)
-                                            <a href="{{ route('card.update.status',['card' => $card,'status' => 1]) }}" 
+                                            <a href="{{ route('card.update.status',['card' => $card,'status' => 1]) }}"
                                                 class="btn btn-sm btn-warning me-2">Approve
                                             </a>
                                             <a href="{{ route('card.update.status',['card' => $card,'status' => 2]) }}"
@@ -76,7 +76,7 @@
                                 </td>
                             </tr>
                         @endforeach
-                        
+
                     </tbody>
                 </table>
             </div>
