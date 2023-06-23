@@ -14,7 +14,7 @@ class WalletController extends Controller
 {
     public function index()
     {
-        $wallets = Wallet::where('user_id', Auth::id())->get();
+        $wallets = Wallet::with('currency')->where('user_id', Auth::id())->get();
         return view('user.wallets.index')->with('wallets', $wallets);
     }
 
