@@ -37,12 +37,14 @@
                                <td>{{ $deposit->user->name }}</td>
                                <td>{{ $deposit->wallet->address }}</td>
                                <td>
-                                    @if ($deposit->transaction_detail->proof_file)
-                                        <a href="{{ $deposit->transaction_detail->proof_file }}" target="blank"
-                                        class="btn btn-sm btn-primary">Preview
-                                        </a>
-                                    @else
-                                        N/A
+                                    @if($deposit->transaction_detail)
+                                        @if ($deposit->transaction_detail->proof_file)
+                                            <a href="{{ $deposit->transaction_detail->proof_file }}" target="blank"
+                                            class="btn btn-sm btn-primary">Preview
+                                            </a>
+                                        @else
+                                            N/A
+                                        @endif
                                     @endif
                                 </td>
                                <td>{{ $deposit->credit . " " . $deposit->wallet->currency->code }}</td>
@@ -56,16 +58,18 @@
                                    @endif
                                </td>
                                <td>
-                                    @if ($deposit->transaction_detail->proof_file != null && $deposit->status == 0)
-                                        <a href="{{ route('deposit.update.status',['transaction' => $deposit,'status' => 1]) }}" 
-                                         class="btn btn-sm btn-warning">Approve
-                                        </a>
-                                        <a href="{{ route('deposit.update.status',['transaction' => $deposit,'status' => 2]) }}"
-                                        class="btn btn-sm btn-danger">Cancel
-                                        </a>
-                                    @else
-                                        N/A
-                                    @endif 
+                                    @if($deposit->transaction_detail)
+                                        @if ($deposit->transaction_detail->proof_file != null && $deposit->status == 0)
+                                            <a href="{{ route('deposit.update.status',['transaction' => $deposit,'status' => 1]) }}" 
+                                            class="btn btn-sm btn-warning">Approve
+                                            </a>
+                                            <a href="{{ route('deposit.update.status',['transaction' => $deposit,'status' => 2]) }}"
+                                            class="btn btn-sm btn-danger">Cancel
+                                            </a>
+                                        @else
+                                            N/A
+                                        @endif 
+                                    @endif
                                </td>
                            </tr>
                        @endforeach
