@@ -57,10 +57,10 @@
                                </td>
                                <td>
                                     @if ($deposit->transaction_detail->proof_file != null && $deposit->status == 0)
-                                        <a href="{{ route('deposit.update.status',['deposit' => $deposit->id,'status' => 1]) }}" 
+                                        <a href="{{ route('deposit.update.status',['transaction' => $deposit,'status' => 1]) }}" 
                                          class="btn btn-sm btn-warning">Approve
                                         </a>
-                                        <a href="{{ route('deposit.update.status',['deposit' => $deposit->id,'status' => 2]) }}"
+                                        <a href="{{ route('deposit.update.status',['transaction' => $deposit,'status' => 2]) }}"
                                         class="btn btn-sm btn-danger">Cancel
                                         </a>
                                     @else

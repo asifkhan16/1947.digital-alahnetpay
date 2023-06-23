@@ -24,10 +24,7 @@ class DepositController extends Controller
 
     }
 
-    public function ApproveOrRejectTransaction(){
-        // dd($transaction_id);
-        $transaction = Transaction::find(request()->input('transaction_id'));
-        
+    public function ApproveOrRejectTransaction(Transaction $transaction){   
         try {
             $wallet = Wallet::find($transaction->wallet_id);
             // dd($wallet);

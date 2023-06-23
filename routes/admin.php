@@ -32,7 +32,7 @@ Route::group(['middleware' => ["auth", 'role:Admin'], 'prefix' => "admin"], func
     //Deposit Routes
 
     Route::get('/deposits', [DepositController::class, 'index'])->name('deposit.index');
-    Route::get('/deposits/approve/reject', [DepositController::class, 'ApproveOrRejectTransaction'])->name('deposit.update.status');
+    Route::get('/deposits/{transaction}', [DepositController::class, 'ApproveOrRejectTransaction'])->name('deposit.update.status');
 
     //Currencies Routes
     Route::resource('/currencies', CurrencyController::class);
