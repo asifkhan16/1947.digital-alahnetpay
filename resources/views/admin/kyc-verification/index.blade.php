@@ -16,7 +16,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>kycname</th>
+                            <th>username</th>
                             <th>Front side</th>
                             <th>Back side</th>
                             <th>Status</th>
@@ -30,7 +30,13 @@
                                 <td>{{ $kyc->user->name }}</td>
                                 <td><a href="{{ $kyc->document_front }}" target="blank"
                                         class="btn btn-sm btn-primary">Preview</a></td>
-                                <td><a href="{{ $kyc->document_back }}" class="btn btn-sm btn-primary">Preview</a></td>
+                                <td>
+                                    @if($kyc->document_back)
+                                        <a href="{{ $kyc->document_back }}" class="btn btn-sm btn-primary">Preview</a>
+                                    @else
+                                        <span>N/A</span>
+                                    @endif
+                                </td>
                                 <td>
                                     @if ($kyc->status == 0)
                                         <span>Pending</span>
@@ -40,7 +46,17 @@
                                         <span>Cancelled</span>
                                     @endif
                                 </td>
-                                <td>N/A</td>
+                                <td>
+                                    @if($kyc->status == 0)
+                                    <a href="{{ route('kyc_verification.update.status',['kyc' => $kyc,'status' => 1]) }}" 
+                                        class="btn btn-sm btn-warning me-2">Approve
+                                    </a>
+                                    <a href="{{ route('kyc_verification.update.status',['kyc' => $kyc,'status' => 2]) }}"
+                                    class="btn btn-sm btn-danger">Cancel
+                                @else
+                                    N/A
+                                @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

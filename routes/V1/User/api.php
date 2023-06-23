@@ -25,6 +25,7 @@ Route::post('/register',     [AuthController::class, 'register']);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/change-password',     [AuthController::class, 'change_password']);
+    Route::get('/profile',              [ProfileController::class, 'index']);
     Route::post('/profile/create',      [ProfileController::class, 'store']);
     Route::post('/profile/update',      [ProfileController::class, 'update']);
     Route::post('/kyc-verification',    [KycVerificationController::class, 'store']);

@@ -10,12 +10,25 @@ class KycController extends Controller
 {
     public function index()
     {
-        $kyc_s = KycVerification::with('user')->get();
+        if(request()->input('status') == -1){
+            $kyc_s = KycVerification::with('user')->get();
+        }else{
+            $kyc_s = KycVerification::with('user')->where('status', request()->input('status'))->get();
+        }
         return view('admin.kyc-verification.index')->with('kyc_s', $kyc_s);
+    }
+
+    public function ApproveOrRejectKyc(KycVerification $kyc){
+        // dd(request()->input('status'));
+
+        KycVerification::where('id',$kyc->id)->update([
+            'status' => request()->input('status'),
+        ]);
+
+        return back()->with('success','Action performed successfully.');
     }
     public function kyc_pending()
     {
-        $pending_kyc = KycVerification::with('user')->where('status', 0)->get();
         return view('admin.kyc-verification.pending')->with('pending_kyc', $pending_kyc);
     }
 

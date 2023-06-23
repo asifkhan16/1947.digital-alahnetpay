@@ -48,6 +48,9 @@ class DepositController extends Controller
             if(!$wallet)
                 return ErrorResponse('Wallet not found.');
 
+            if($wallet->user_id != Auth::id())
+                return ErrorResponse("The wallet does't belongs to you.");
+
             if($wallet->status != 1)
                 return ErrorResponse("Your Wallet has been blocked please contact our support.");
 
@@ -55,7 +58,7 @@ class DepositController extends Controller
             $response = PercentToObtaind($depsit_method->percentage_deposit_fee, $request->amount);
 
             if(!$response['success']){
-                throw new RuntimeException('Operation Faild.');
+                throw new RuntimeException('Operation Failed.');
             }
 
             $percent_fee_amount = $response['body']['obtaind'];
@@ -63,8 +66,8 @@ class DepositController extends Controller
 
             $deposit = ChooseDepositMethod::updateOrCreate([
                 'user_id' => Auth::id(),
-                'wallet_id' => $wallet->id,
             ],[
+                'wallet_id' => $wallet->id,
                 'deposit_method_id' => $depsit_method->id,
                 'amount' => $request->amount,
                 'fee' => $fee
