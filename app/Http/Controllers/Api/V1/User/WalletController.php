@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\User;
 
+use App\Models\KycVerification;
 use App\Models\Wallet;
 use App\Models\Currency;
 use App\Models\Transaction;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Error;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,13 +25,26 @@ class WalletController extends Controller
     }
 
     public function store(Request $request)
-{
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3|max:50',
             'currency_id' => 'required|numeric'
         ]);
         if ($validator->fails())
             return ErrorResponse($validator->errors()->first());
+
+        $verification_request = KycVerification::where('user_id',Auth::id())->first();
+
+        if(!$verification_request)
+            return ErrorResponse('Please Verifiy you KYC verifiaction.');
+        
+        if($verification_request->status == 0){
+            return ErrorResponse('Your Verification request is not approved by admin yet.');
+        }
+
+        if($verification_request->status == 2){
+            return ErrorResponse('Your Verification request  is cancelled by admin.');
+        }
 
         $currency = Currency::find($request->currency_id);
         if (!$currency)

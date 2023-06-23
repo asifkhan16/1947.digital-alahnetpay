@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users', 'id')->onDelete('cascade');
             $table->string('document_front');
             $table->string('document_back')->nullable();
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->comment('0 => pending | 1 => verified | 2 => cancelled.');
             $table->timestamps();
         });
     }
