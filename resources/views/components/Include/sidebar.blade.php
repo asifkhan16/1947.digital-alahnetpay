@@ -94,6 +94,22 @@
                 <div class="menu-title">Wallets</div>
             </a>
         </li>
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"> <i class="bx bx-donate-blood"></i>
+                </div>
+                <div class="menu-title">Escrow</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('user.escrow') }}"><i class='bx bx-radio-circle'></i>All Escrow</a>
+                </li>
+                <li> <a href="{{ route('user.escrow.create') }}"><i class='bx bx-radio-circle'></i>New Escrow</a>
+                </li>
+                <li> <a href="{{ route('user.escrow.transaction') }}"><i class='bx bx-radio-circle'></i>Transactions</a>
+                </li>
+
+            </ul>
+        </li>
         @endrole
     </ul>
     <!--end navigation-->

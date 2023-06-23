@@ -30,4 +30,8 @@ class Transaction extends Model
     public function transaction_detail(){
         return $this->hasOne(TransactionDetail::class, 'transaction_id','id');
     }
+
+    public function escrow_transaction(){
+        return $this->hasMany(EscrowTransaction::class,'transaction_id','id');
+    }
 }
