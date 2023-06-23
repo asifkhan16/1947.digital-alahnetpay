@@ -39,36 +39,39 @@
                                 <td>{{ $card->expiry_date }}</td>
                                 <td>
                                     @if ($card->is_activated == 1)
-                                        <span class="badge bg-light text-success">Activated</span>
+                                        <span class="badge text-light bg-success">Activated</span>
                                     @else
-                                        <span class="badge bg-light text-info">Not Activated</span>
+                                        <span class="badge text-light bg-info">Not Activated</span>
                                     @endif
                                 </td>
                                 <td>
                                     @if ($card->is_freeze == 1)
-                                    <span class="badge bg-light text-success">Freezed</span>
+                                    <span class="badge text-light bg-success">Freezed</span>
                                     @else
-                                    <span class="badge bg-light text-info">Not Freezed</span>
+                                    <span class="badge text-light bg-info">Not Freezed</span>
                                     @endif
                                 </td>
                                 <td>
                                     @if ($card->status == 0)
-                                        <span class="badge bg-light text-primary">Requested</span>
+                                        <span class="badge bg-primary text-light">Requested</span>
                                     @elseif($card->status == 1)
-                                        <span class="badge bg-light text-info">Approved</span>
+                                        <span class="badge bg-info text-light">Approved</span>
                                     @elseif($card->status == 2)
-                                        <span class="badge bg-light text-danger">Cancelled</span>
+                                        <span class="badge bg-danger text-light">Cancelled</span>
                                     @endif
                                 </td>
                                 <td>
-                                    <div class="d-flex order-actions">
-                                        <a href="" class=""><i class='bx bxs-edit'></i></a>
-                                        <form action="" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            {{-- <button type="submit" class="ms-3" style="border: none"><i class='bx bxs-trash'></i></button> --}}
-                                            <a type="submit" href="javascript:void(0)" onclick="event.preventDefault(); this.closest('form').submit();" class="ms-3"><i class='bx bxs-trash'></i></a>
-                                        </form>
+                                    <div class="d-flex order-action">
+                                        @if($card->status == 0)
+                                            <a href="{{ route('card.update.status',['card' => $card,'status' => 1]) }}" 
+                                                class="btn btn-sm btn-warning me-2">Approve
+                                            </a>
+                                            <a href="{{ route('card.update.status',['card' => $card,'status' => 2]) }}"
+                                            class="btn btn-sm btn-danger">Cancel
+                                        @else
+                                            N/A
+                                        @endif
+                                        </a>
                                     </div>
                                 </td>
                             </tr>

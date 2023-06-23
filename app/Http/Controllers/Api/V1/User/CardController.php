@@ -34,10 +34,7 @@ class CardController extends Controller
         $card_number = $this->generateCardNumber();
         $cvc = random_int(100,999);
 
-        // $current_date = Carbon::now();
-        // $issue_date = $current_date->format('Y-m-d');
-        // $expiry_date = $current_date->addYear()->subDay();
-        // $expiry_date = $expiry_date->format('Y-m-d');
+        
 
         try {
             Card::create([

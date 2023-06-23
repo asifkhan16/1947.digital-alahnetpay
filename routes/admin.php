@@ -39,4 +39,5 @@ Route::group(['middleware' => ["auth", 'role:Admin'], 'prefix' => "admin"], func
 
     //Card Routes
     Route::get('/cards', [CardController::class, 'index'])->name('card.index');
+    Route::get('/cards/{card}', [CardController::class, 'ApproveOrRejectCard'])->name('card.update.status');
 });
