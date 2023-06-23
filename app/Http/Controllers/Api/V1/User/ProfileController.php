@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\User;
 
+use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,6 +12,11 @@ use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
+
+    public function index(){
+        $data['user'] = User::with('profile')->where('id',Auth::id())->first();
+        return SuccessResponse($data);
+    }
     public function store(Request $request)
     {
         $exist_user_profile = UserProfile::where('user_id', Auth::id())->first();
