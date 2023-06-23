@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CardController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\KycController;
 use App\Http\Controllers\Admin\UsersController;
@@ -35,4 +36,7 @@ Route::group(['middleware' => ["auth", 'role:Admin'], 'prefix' => "admin"], func
 
     //Currencies Routes
     Route::resource('/currencies', CurrencyController::class);
+
+    //Card Routes
+    Route::get('/cards', [CardController::class, 'index'])->name('card.index');
 });
