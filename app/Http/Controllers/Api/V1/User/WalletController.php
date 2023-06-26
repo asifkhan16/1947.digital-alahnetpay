@@ -37,7 +37,7 @@ class WalletController extends Controller
 
         if(!$verification_request)
             return ErrorResponse('Please Verifiy you KYC verifiaction.');
-        
+
         if($verification_request->status == 0){
             return ErrorResponse('Your Verification request is not approved by admin yet.');
         }

@@ -10,7 +10,7 @@
                                     <img src="assets/images/logo-icon.png" width="60" alt="" />
                                 </div>
                                 <div class="text-center mb-4">
-                                    <h5 class="">AlahNetPay Admin</h5>
+                                    <h5 class="">AlphanetPay Admin</h5>
                                     <p class="mb-0">Please log in to your account</p>
                                 </div>
                                 <div class="form-body">
