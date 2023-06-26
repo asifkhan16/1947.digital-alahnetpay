@@ -40,6 +40,13 @@
                                         </div>
                                         <div class="col-md-6 text-end">	<a href="auth-basic-forgot-password.html">Forgot Password ?</a>
                                         </div>
+                                        <hr>
+                                        <div class="col-12">
+                                            <div class="text-center ">
+                                                <p class="mb-0">Don't have an account? <a
+                                                        href="{{ route('register') }}">Sign up here</a></p>
+                                            </div>
+                                        </div>
                                         <div class="col-12">
                                             <div class="d-grid">
                                                 <button type="submit" class="btn btn-light">Sign in</button>
