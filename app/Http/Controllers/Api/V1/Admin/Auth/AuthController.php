@@ -26,7 +26,7 @@ class AuthController extends Controller
             return ErrorResponse($validator->errors()->first());
 
 
-        
+
         $credentials = $request->only('email','password');
 
 

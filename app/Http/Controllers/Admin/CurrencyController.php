@@ -64,7 +64,7 @@ class CurrencyController extends Controller
             $image_url = Storage::disk('public')->url($image);
             $data['flag_url'] = $image_url;
         }
-        
+
         Currency::where('id',$currency->id)->update($data);
 
         return redirect()->route('currencies.index')->with('success','Currency Updated Succssfully');
@@ -72,10 +72,10 @@ class CurrencyController extends Controller
 
     public function destroy(Currency $currency){
         $is_curreny_used = Wallet::where('currency_id',$currency->id)->first();
-        
+
         if($is_curreny_used)
             return redirect()->route('currencies.index')->with('error',"Currency is already used you can't delete it");
-            
+
         $currency->delete();
         return redirect()->route('currencies.index')->with('success','Currency deleted Succssfully');
     }
