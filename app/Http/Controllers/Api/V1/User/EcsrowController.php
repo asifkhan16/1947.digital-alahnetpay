@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class EcsrowController extends Controller
 {
     public function store(Request $request){
-        $validator = Validator::make([
+        $validator = Validator::make($request->all(),[
             'title' => 'required|min:3|max:50',
             'amount' => 'required|numeric',
             'receiver_wallet_address' => 'required',
@@ -20,12 +20,15 @@ class EcsrowController extends Controller
             'user_wallet_id' => 'required'
         ]);
 
+        if ($validator->fails())
+            return ErrorResponse($validator->errors()->first());
+
         $recipient_wallet = Wallet::where('address', $request->receiver_wallet_address)->first();
         if (!$recipient_wallet)
-            return redirect()->back()->with('error', 'Recipient Wallet not found!');
-
+            return ErrorResponse('Recipient Wallet not found!');
+            
         if ($recipient_wallet->user_id == Auth::id())
-            return redirect()->back()->with('error', 'You are not able to make an escrow request to yourself!');
+            return ErrorResponse("You are not able to make an escrow request to yourself!");
 
 
         try {
@@ -60,9 +63,10 @@ class EcsrowController extends Controller
                 ]);
             }
 
-            return redirect()->route('user.escrow')->with('success', 'Your escrow request has been successfully submitted!');
+            return SuccessResponse('Your escrow request has been successfully submitted!');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', $th->getMessage());
+            Log::error('Escrow Creation Error : '.$th->getMessage());
+            return ErrorResponse('Opertation failed contact our support.');
         }
     }   
 }

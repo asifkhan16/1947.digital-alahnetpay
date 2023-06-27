@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\V1\User\KycVerificationController;
 |
 */
 
+Route::get('/tesing_api', [AuthController::class, 'tesitng']);
 Route::post('/login',        [AuthController::class, 'login']);
 Route::post('/register',     [AuthController::class, 'register']);
 
