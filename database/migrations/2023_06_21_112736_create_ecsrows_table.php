@@ -22,8 +22,9 @@ return new class extends Migration
             $table->foreignId('buyer_wallet_id')->constrained('wallets','id');
             $table->double('amount');
             $table->string('description')->nullable();
-            $table->tinyInteger('type')->comment('1 => seller | 2 => buyer ');
-            $table->tinyInteger('status')->comment('0 => pending | 1 => accept | 2 => cancel | 3 => release');
+            $table->tinyInteger('request_type')->comment('1 => clients (buyer) can make a request to the user(seller) for his work. | 2 => The user (seller) can make a request to do work for other clients (buyer) ');
+            $table->tinyInteger('seller_status')->comment('0 => pending | 1 => accept | 2 => cancel | 3 => release');
+            $table->tinyInteger('buyer_status')->comment('0 => pending | 1 => accept | 2 => cancel | 3 => release');
             $table->timestamps();
         });
     }

@@ -19,8 +19,9 @@ class Escrow extends Model
         'buyer_wallet_id',
         'amount',
         'description',
-        'status',
-        'type'
+        'seller_status',
+        'buyer_status',
+        'request_type'
     ];
 
     public function seller()
