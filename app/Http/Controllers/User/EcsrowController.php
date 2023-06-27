@@ -82,8 +82,9 @@ class EcsrowController extends Controller
                     'seller_wallet_id' => $recipient_wallet->id,
                     'buyer_wallet_id' => $user_wallet->id,
                     'description' => $request->description,
-                    'status' => 0,
-                    'type' => $request->request_type
+                    'seller_status' => 0,
+                    'buyer_status' => 0,
+                    'request_type' => $request->request_type
                 ]);
             } elseif ($request->request_type == 2) {
                 Escrow::create([
@@ -96,8 +97,9 @@ class EcsrowController extends Controller
                     'seller_wallet_id' => $user_wallet->id,
                     'buyer_wallet_id' => $recipient_wallet->id,
                     'description' => $request->description,
-                    'status' => 0,
-                    'type' => $request->request_type
+                    'seller_status' => 0,
+                    'buyer_status' => 0,
+                    'request_type' => $request->request_type
                 ]);
             }
 
