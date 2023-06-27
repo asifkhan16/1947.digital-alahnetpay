@@ -42,36 +42,36 @@ class EcsrowController extends Controller
             'title' => 'required|min:3|max:50',
             'amount' => 'required|numeric',
             'receiver_wallet_address' => 'required',
-            'type' => 'required|numeric|min:1|max:2',
+            'request_type' => 'required|numeric|min:1|max:2',
             'user_wallet_id' => 'required'
         ]);
 
 
         $recipient_wallet = Wallet::where('address', $request->receiver_wallet_address)->first();
+        $user_wallet = Wallet::where('id',$request->user_wallet_id)->first();
+
         if (!$recipient_wallet)
             return redirect()->back()->with('error', 'Recipient Wallet not found!');
 
         if ($recipient_wallet->user_id == Auth::id())
             return redirect()->back()->with('error', 'You are not able to make an escrow request to yourself!');
 
+        if(!$user_wallet)
+            return back()->with('error','Your Walllet not found please select the correct wallet.');
+
+        if($request->request_type == 1){
+            if($user_wallet->balance < $request->amount)
+                return back()->with('error','You have insufficient balance.');
+        }
+
+        if($request->request_type == 2){
+            if($recipient_wallet->balance < $request->amount)
+                return back()->with('error','Recipient have insufficient balance.');
+        }
 
         try {
 
-            if ($request->type == 1) {
-                Escrow::create([
-                    'title' => $request->title,
-                    'creator_id' => Auth::id(),
-                    'receiver_id' => $recipient_wallet->user_id,
-                    'seller_id' => Auth::id(),
-                    'buyer_id' => $recipient_wallet->user_id,
-                    'amount' => $request->amount,
-                    'seller_wallet_id' => $request->user_wallet_id,
-                    'buyer_wallet_id' => $recipient_wallet->id,
-                    'description' => $request->description,
-                    'status' => 0,
-                    'type' => $request->type
-                ]);
-            } elseif ($request->type == 2) {
+            if ($request->request_type == 1) {
                 Escrow::create([
                     'title' => $request->title,
                     'creator_id' => Auth::id(),
@@ -80,10 +80,24 @@ class EcsrowController extends Controller
                     'buyer_id' => Auth::id(),
                     'amount' => $request->amount,
                     'seller_wallet_id' => $recipient_wallet->id,
-                    'buyer_wallet_id' => $request->user_wallet_id,
+                    'buyer_wallet_id' => $user_wallet->id,
                     'description' => $request->description,
                     'status' => 0,
-                    'type' => $request->type
+                    'type' => $request->request_type
+                ]);
+            } elseif ($request->request_type == 2) {
+                Escrow::create([
+                    'title' => $request->title,
+                    'creator_id' => Auth::id(),
+                    'receiver_id' => $recipient_wallet->user_id,
+                    'seller_id' => Auth::id(),
+                    'buyer_id' => $recipient_wallet->user_id,
+                    'amount' => $request->amount,
+                    'seller_wallet_id' => $user_wallet->id,
+                    'buyer_wallet_id' => $recipient_wallet->id,
+                    'description' => $request->description,
+                    'status' => 0,
+                    'type' => $request->request_type
                 ]);
             }
 
