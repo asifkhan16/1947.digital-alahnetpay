@@ -37,15 +37,30 @@
                                 <td>{{ $escrow->amount }}</td>
                                 <td>{{ $escrow->description }}</td>
                                 <td>
-                                    @if ($escrow->status == 0)
-                                        <span class="badge bg-primary">Pending</span>
-                                    @elseif ($escrow->status == 1)
-                                        <span class="badge bg-primary">Accepted</span>
-                                    @elseif ($escrow->status == 2)
-                                        <span class="badge bg-danger">Cancelled</span>
-                                    @elseif ($escrow->status == 3)
-                                        <span class="badge bg-success">Completed</span>
+
+                                    @if(Auth::id() == $escrow->creator_id   )
+                                        @if ($escrow->buyer_status == 0)
+                                            <span class="badge bg-primary">buyer Pending</span>
+                                        @elseif ($escrow->buyer_status == 1)
+                                            <span class="badge bg-primary">Accepted</span>
+                                        @elseif ($escrow->buyer_status == 2)
+                                            <span class="badge bg-danger">Cancelled</span>
+                                        @elseif ($escrow->buyer_status == 3)
+                                            <span class="badge bg-success">Completed</span>
+                                        @endif
                                     @endif
+                                    @if($escrow->request_type == 2 && Auth::id() == $escrow->creator_id)
+                                        @if ($escrow->seller_status == 0)
+                                            <span class="badge bg-primary">seller Pending</span>
+                                        @elseif ($escrow->seller_status == 1)
+                                            <span class="badge bg-primary">Accepted</span>
+                                        @elseif ($escrow->seller_status == 2)
+                                            <span class="badge bg-danger">Cancelled</span>
+                                        @elseif ($escrow->seller_status == 3)
+                                            <span class="badge bg-success">Completed</span>
+                                        @endif
+                                    @endif
+                                    
                                 </td>
                                 @if ($escrow->creator_id != Auth::id())
                                 @if ($escrow->status == 0)
