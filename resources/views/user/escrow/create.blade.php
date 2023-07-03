@@ -58,10 +58,10 @@
 
                         </div>
                         <div class="col-12">
-                            <label for="type" class="form-label">Escrow</label>
-                            <select id="type" class="form-select" name="type">
-                                <option value="1" selected>Request Assistance</option>
-                                <option value="2">Send Money</option>
+                            <label for="type" class="form-label">Escrow Request Type</label>
+                            <select id="type" class="form-select" name="request_type">
+                                <option value="1" selected>Request for a work to a seller (You are Buyer)</option>
+                                <option value="2">Request to do work for client (You are Seller)</option>
                             </select>
                             @error('type') <span class="text-warning">{{ $message }}</span> @enderror
 

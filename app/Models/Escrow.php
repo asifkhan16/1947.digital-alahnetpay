@@ -10,9 +10,8 @@ class Escrow extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'title',
-        'creator_id',
-        'receiver_id',
         'seller_id',
         'buyer_id',
         'seller_wallet_id',
@@ -20,7 +19,8 @@ class Escrow extends Model
         'amount',
         'description',
         'status',
-        'type'
+        'request_type',
+        'role'
     ];
 
     public function seller()

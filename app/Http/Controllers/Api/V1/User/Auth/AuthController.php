@@ -13,43 +13,33 @@ use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
     public function tesitng(){
-        // return request()->input('campaign_id');
         // $app_id = 'YOUR_APP_ID';
         // $app_secret = 'YOUR_APP_SECRET';
         // $campaign_id = 'YOUR_CAMPAIGN_ID';
         // $date_start = 'YYYY-MM-DD';
         // $date_end = 'YYYY-MM-DD';
-        $app_id = '644281420617494';
-        $app_secret = 'a692d950d56423371ec47e587778abcc';
-        $campaign_id = request()->input('campaign_id');
+        $app_id = 'YOUR_APP_ID';
+        $app_secret = 'YOUR_APP_SECRET';
+        $campaign_id = '6326850223140';
         $date_start = '2023-01-01';
-        $date_end = '2023-05-23';
+        $date_end = '2023-06-26';
+
+//         6326850223140
+// 6313321250340
+// 6312046046340
 
         // Step 1: Get a short-lived user access token
-        $short_token_url = "https://graph.facebook.com/v12.0/oauth/access_token?client_id={$app_id}&client_secret={$app_secret}&grant_type=client_credentials";
-        $short_token_response = file_get_contents($short_token_url);
-        $short_token_data = json_decode($short_token_response, true);
+        // $short_token_url = "https://graph.facebook.com/v17.0/oauth/access_token?client_id={$app_id}&client_secret={$app_secret}&grant_type=client_credentials";
+        // $short_token_response = file_get_contents($short_token_url);
+        // $short_token_data = json_decode($short_token_response, true);
 
-        if (!isset($short_token_data['access_token'])) {
-            return ErrorResponse('Failed to obtain short-lived access token.');
-            exit;
-        }
-
-        // $short_access_token = $short_token_data['access_token'];
-
-        // // Step 2: Exchange the short-lived token for a long-lived access token
-        // $long_token_url = "https://graph.facebook.com/v12.0/oauth/access_token?grant_type=fb_exchange_token&client_id={$app_id}&client_secret={$app_secret}&fb_exchange_token={$short_access_token}";
-        // $long_token_response = file_get_contents($long_token_url);
-        // $long_token_data = json_decode($long_token_response, true);
-
-        // return $long_token_data;
-        // if (!isset($long_token_data['access_token'])) {
-        //     echo 'Failed to obtain long-lived access token.';
+        // if (!isset($short_token_data['access_token'])) {
+        //     return ErrorResponse('Failed to obtain short-lived access token.');
+        //     echo 'Failed to obtain short-lived access token.';
         //     exit;
         // }
 
-        // $access_token = $long_token_data['access_token'];
-        $access_token = $short_token_data['access_token'];
+        // $access_token = $short_token_data['access_token'];
 
         // Generate the API endpoint URL
         $endpoint = "https://graph.facebook.com/v17.0/{$campaign_id}/ads";
@@ -63,7 +53,8 @@ class AuthController extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
-            'Authorization: Bearer ' . 'EAAOAv6M6tzABACd4Fu10BxMe3zxZBLneMw98WAgLp4yCPrOI0C5IMkDMHlokVsZCRJstncHbegJZCz4tHele4muEFqj3w9vOaZBlpVbVXKtlHE9saYT4e9FZCyKCjrNYCSufvxATXkNBSlZCJ3ymHM23pZCUZCj9FzJ83L4B9pOYt5IvnC1nk6NDjqcR9wZBYyHbG6WZBPErxiSgZDZD',
+            'Authorization: Bearer ' . "EAAOAv6M6tzABAJ6nO50vyOB3LApyDiBAVCMdgJ3djtrwD1GThA96ClJBuccASZBnkM385FUIQQzmSh7WhbzzoZAJ4vUn1EPEBoQZBKltZAGgHOJW2TWEToyo8MFpYzcZCby5hWn3ZAvzQLULGqvdC688yg1CR2ZAuNynywJi6uuRlW1EZB9jwROz1UUiaIw18jHwgsJgVkp9gAZDZD",
+            // 'Authorization: Bearer ' . $access_token,
         ]);
 
         // Set the request parameters
@@ -91,7 +82,6 @@ class AuthController extends Controller
 
         // Decode the JSON response
         $data = json_decode($response, true);
-
         return SuccessResponse($data);
         // Display the result
         foreach ($data['data'] as $ad) {
