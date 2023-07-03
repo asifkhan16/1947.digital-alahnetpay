@@ -17,8 +17,8 @@ class EcsrowController extends Controller
 
     public function index()
     {
-        $escrows = Escrow::with('seller', 'buyer')->where('receiver_id', Auth::id())->orWhere('creator_id', Auth::id())->get();
-        dd($escrows->toArray());
+        $escrows = Escrow::with('seller', 'buyer')->where('user_id',Auth::id())->get();
+        // dd($escrows->toArray());
         return view('user.escrow.index')->with('escrows', $escrows);
     }
 
