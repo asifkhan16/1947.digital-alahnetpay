@@ -14,17 +14,16 @@ return new class extends Migration
         Schema::create('escrows', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->foreignId('creator_id')->constrained('users', 'id');
-            $table->foreignId('receiver_id')->constrained('users', 'id');
+            $table->foreignId('user_id')->constrained('users','id');
             $table->foreignId('seller_id')->constrained('users', 'id');
             $table->foreignId('buyer_id')->constrained('users', 'id');
             $table->foreignId('seller_wallet_id')->constrained('wallets','id');
             $table->foreignId('buyer_wallet_id')->constrained('wallets','id');
             $table->double('amount');
             $table->string('description')->nullable();
-            $table->tinyInteger('request_type')->comment('1 => clients (buyer) can make a request to the user(seller) for his work. | 2 => The user (seller) can make a request to do work for other clients (buyer) ');
-            $table->tinyInteger('seller_status')->comment('0 => pending | 1 => accept | 2 => cancel | 3 => release');
-            $table->tinyInteger('buyer_status')->comment('0 => pending | 1 => accept | 2 => cancel | 3 => release');
+            $table->tinyInteger('request_type')->comment('1 => clients (buyer) request to the user(seller) for his work. | 2 => The user (seller) request to do work for clients (buyer) ');
+            $table->tinyInteger('status')->comment('0 => pending | 1 => accept | 2 => cancel | 3 => release');
+            $table->tinyInteger('role')->comment('0 => Creater, 1 => Reciver');
             $table->timestamps();
         });
     }
