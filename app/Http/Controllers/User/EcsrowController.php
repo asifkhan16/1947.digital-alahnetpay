@@ -18,7 +18,7 @@ class EcsrowController extends Controller
     public function index()
     {
         $escrows = Escrow::with('seller', 'buyer')->where('receiver_id', Auth::id())->orWhere('creator_id', Auth::id())->get();
-        // dd($escrows->toArray());
+        dd($escrows->toArray());
         return view('user.escrow.index')->with('escrows', $escrows);
     }
 
@@ -74,31 +74,58 @@ class EcsrowController extends Controller
             if ($request->request_type == 1) {
                 Escrow::create([
                     'title' => $request->title,
-                    'creator_id' => Auth::id(),
-                    'receiver_id' => $recipient_wallet->user_id,
+                    'user_id' => Auth::id(),
                     'seller_id' => $recipient_wallet->user_id,
                     'buyer_id' => Auth::id(),
                     'amount' => $request->amount,
                     'seller_wallet_id' => $recipient_wallet->id,
                     'buyer_wallet_id' => $user_wallet->id,
                     'description' => $request->description,
-                    'seller_status' => 0,
-                    'buyer_status' => 0,
-                    'request_type' => $request->request_type
+                    'status' => 0,
+                    'request_type' => $request->request_type,
+                    'role' => 1
                 ]);
+
+                Escrow::create([
+                    'title' => $request->title,
+                    'user_id' => $recipient_wallet->user_id,
+                    'seller_id' => $recipient_wallet->user_id,
+                    'buyer_id' => Auth::id(),
+                    'amount' => $request->amount,
+                    'seller_wallet_id' => $recipient_wallet->id,
+                    'buyer_wallet_id' => $user_wallet->id,
+                    'description' => $request->description,
+                    'status' => 0,
+                    'request_type' => $request->request_type,
+                    'role' => 2
+                ]);
+
             } elseif ($request->request_type == 2) {
                 Escrow::create([
                     'title' => $request->title,
-                    'creator_id' => Auth::id(),
-                    'receiver_id' => $recipient_wallet->user_id,
+                    'user_id' => Auth::id(),
                     'seller_id' => Auth::id(),
                     'buyer_id' => $recipient_wallet->user_id,
                     'amount' => $request->amount,
                     'seller_wallet_id' => $user_wallet->id,
                     'buyer_wallet_id' => $recipient_wallet->id,
                     'description' => $request->description,
-                    'seller_status' => 0,
-                    'buyer_status' => 0,
+                    'status' => 0,
+                    'role' => 1,
+                    'request_type' => $request->request_type
+                ]);
+
+                Escrow::create([
+                    'title' => $request->title,
+                    'user_id' => $recipient_wallet->user_id,
+                    'seller_id' => Auth::id(),
+                    'buyer_id' => $recipient_wallet->user_id,
+                    'amount' => $request->amount,
+                    'seller_wallet_id' => $user_wallet->id,
+                    'buyer_wallet_id' => $recipient_wallet->id,
+                    'description' => $request->description,
+                    'status' => 0,
+                    'role' => 2,
                     'request_type' => $request->request_type
                 ]);
             }

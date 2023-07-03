@@ -38,6 +38,8 @@
                                 <td>{{ $escrow->description }}</td>
                                 <td>
 
+                                        
+
                                     @if(Auth::id() == $escrow->creator_id   )
                                         @if ($escrow->buyer_status == 0)
                                             <span class="badge bg-primary">buyer Pending</span>

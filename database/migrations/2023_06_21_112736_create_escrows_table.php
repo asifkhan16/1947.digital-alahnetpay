@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->tinyInteger('request_type')->comment('1 => clients (buyer) request to the user(seller) for his work. | 2 => The user (seller) request to do work for clients (buyer) ');
             $table->tinyInteger('status')->comment('0 => pending | 1 => accept | 2 => cancel | 3 => release');
-            $table->tinyInteger('role')->comment('0 => Creater, 1 => Reciver');
+            $table->tinyInteger('role')->comment('1 => Creater, 2 => Reciver');
             $table->timestamps();
         });
     }
