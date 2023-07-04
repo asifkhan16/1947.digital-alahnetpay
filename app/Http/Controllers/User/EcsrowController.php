@@ -155,7 +155,7 @@ class EcsrowController extends Controller
         if ($wallet->balance < $escrow->amount)
             return redirect()->back()->with('error', 'Insufficient balance in wallet to accept this escrow!');
 
-            
+
         try {
             DB::beginTransaction();
 
@@ -170,7 +170,7 @@ class EcsrowController extends Controller
                 'status' => 3, // 3 means HOLD
                 'charges' => 0,
             ]);
-            
+
 
             if (Auth::id() == $escrow->seller_id) {
                 EscrowTransaction::create([
@@ -224,7 +224,7 @@ class EcsrowController extends Controller
                     'wallet_id' => $escrow->seller_wallet_id,
                     'description' => 'Deposit funds via Escrow !',
                     'credit' => $escrow->amount,
-                    'status' => 3, // 3 means HOLD
+                    'status' => 3,
                     'charges' => 0,
                 ]);
                 EscrowTransaction::create([

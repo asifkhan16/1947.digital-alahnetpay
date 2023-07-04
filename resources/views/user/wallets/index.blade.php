@@ -34,7 +34,7 @@
                                     <i class='lni lni-pulse'></i>Send</a>
                                 <a href="#" class="btn btn-light btn-sm px-3 ms-2">
                                     <i class='lni lni-pulse'></i>Withdraw</a>
-                                <a href="#" class="btn btn-light btn-sm px-3 ms-2">
+                                <a href="{{ route('user.wallet.transactions', $wallet) }}" class="btn btn-light btn-sm px-3 ms-2">
                                     <i class='lni lni-pulse'></i>Transactions</a>
                             </div>
                         </div>

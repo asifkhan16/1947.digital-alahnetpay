@@ -17,7 +17,7 @@ class HoldController extends Controller
         }else{
             $holdTransactions = HoldTransaction::where('status',request()->input('status'));
         }
-        
+
         return view('admin.hold-transaction.index')->with('hold_transactions',$holdTransactions);
     }
 
@@ -30,7 +30,7 @@ class HoldController extends Controller
                 Wallet::where('id',$transaction->wallet_id)->increment('balance', $transaction->credit);
 
                 $transaction->update([
-                    'status' => 1
+                    'status' => 4
                 ]);
 
                 $holdTransaction->update([

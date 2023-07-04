@@ -9,6 +9,7 @@
    </div>
    <hr />
    <!--end breadcrumb-->
+   <x-alerts />
    <div class="card">
        <div class="card-body">
            <div class="table-responsive">
@@ -16,7 +17,8 @@
                    <thead>
                        <tr>
                            <th>ID</th>
-                           <th>amount</th>
+                           <th>Amount</th>
+                           <th>Description</th>
                            <th>Status</th>
                            <th>Action</th>
                        </tr>
@@ -26,6 +28,7 @@
                            <tr>
                                <td>{{ $hold_transaction->id }}</td>
                                <td>{{ $hold_transaction->amount }}</td>
+                               <td>N/A</td>
                                <td>
                                    @if ($hold_transaction->status == 1)
                                         <span class="badge bg-primary text-light">Active</span>
@@ -36,11 +39,8 @@
                                     @endif
                                </td>
                                <td>
-                                    actions
-                               </td>
-                               <td>
                                     @if($hold_transaction->status == 1)
-                                        <a href="{{ route('hold-transaction.approve',$hold_transaction) }}" 
+                                        <a href="{{ route('hold-transaction.approve',$hold_transaction) }}"
                                             class="btn btn-sm btn-warning me-2">Release
                                         </a>
                                         {{-- <a href="{{ route('hold-transaction.reject',$hold_transaction) }}"

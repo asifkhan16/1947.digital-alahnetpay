@@ -41,11 +41,15 @@ Route::middleware('auth')->group(function () {
 
 Route::group(['middleware' => ["auth", "role:User"], 'prefix' => 'user'], function () {
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard.index');
+
+    // wallet Routes
     Route::get('/wallets', [WalletController::class, 'index'])->name('user.wallets');
     // send local transfer routes
     Route::get('/wallets/send/{wallet}', [WalletController::class, 'send'])->name('user.wallet.send');
     Route::get('/wallets/send/local-transfer/{wallet}', [WalletController::class, 'createLocal_tranfer'])->name('user.wallet.send.local_transfer');
     Route::post('/wallets/send/local-transfer/{wallet}', [WalletController::class, 'send_Local_tranfer'])->name('user.wallet.send.local_transfer.submit');
+    // Wallet transaction route
+    Route::get('/wallets/transaction/{wallet}', [WalletController::class, 'walleTransactions'])->name('user.wallet.transactions');
 
     // Escrow
     Route::get('/escrow', [EcsrowController::class, 'index'])->name('user.escrow');
@@ -57,9 +61,8 @@ Route::group(['middleware' => ["auth", "role:User"], 'prefix' => 'user'], functi
     Route::get('/escrow/release/{escrow}', [EcsrowController::class, 'releaseEscrow'])->name('user.escrow.release');
 
     // aplhaCard
-    Route::get('/alphacard',[CardController::class,'index'])->name('user.card');
-    Route::get('/alphacard/create',[CardController::class,'create'])->name('user.card.create');
-    Route::post('/alphacard/store',[CardController::class,'store'])->name('user.card.store');
-
+    Route::get('/alphacard', [CardController::class, 'index'])->name('user.card');
+    Route::get('/alphacard/create', [CardController::class, 'create'])->name('user.card.create');
+    Route::post('/alphacard/store', [CardController::class, 'store'])->name('user.card.store');
 });
 require __DIR__ . '/auth.php';
