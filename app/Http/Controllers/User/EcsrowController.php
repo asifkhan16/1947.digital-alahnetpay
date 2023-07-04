@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\EscrowTransaction;
+use App\Models\HoldTransaction;
+use Database\Seeders\HoldSeeder;
 use Illuminate\Support\Facades\Auth;
 
 class EcsrowController extends Controller
@@ -153,10 +155,12 @@ class EcsrowController extends Controller
         if ($wallet->balance < $escrow->amount)
             return redirect()->back()->with('error', 'Insufficient balance in wallet to accept this escrow!');
 
-        Wallet::where('id', $wallet->id)->decrement('balance', $escrow->amount);
-
+            
         try {
             DB::beginTransaction();
+
+            Wallet::where('id', $wallet->id)->decrement('balance', $escrow->amount);
+
             $transaction =  Transaction::create([
                 'transaction_unqiue_id' => Str::uuid(),
                 'user_id' => $wallet->user_id,
@@ -166,15 +170,21 @@ class EcsrowController extends Controller
                 'status' => 3, // 3 means HOLD
                 'charges' => 0,
             ]);
-            EscrowTransaction::create([
-                'transaction_id' => $transaction->id,
-                'escrow_id' => $escrow->id
-            ]);
+            
 
             if (Auth::id() == $escrow->seller_id) {
+                EscrowTransaction::create([
+                    'transaction_id' => $transaction->id,
+                    'escrow_id' => $escrow->dependent_id
+                ]);
                 Escrow::where('id', $escrow->id)->update(['status' =>  3]);
                 Escrow::where('id', $dependent_escrow->id)->update(['status' => 1]);
+
             } elseif (Auth::id() == $escrow->buyer_id) {
+                EscrowTransaction::create([
+                    'transaction_id' => $transaction->id,
+                    'escrow_id' => $escrow->id
+                ]);
                 Escrow::where('id', $escrow->id)->update(['status' =>  1]);
                 Escrow::where('id', $dependent_escrow->id)->update(['status' => 3]);
             }
@@ -199,15 +209,34 @@ class EcsrowController extends Controller
     {
         try {
             DB::beginTransaction();
-            if ($escrow->user_id != Auth::id())
-                return redirect()->back()->with('error', 'You can not Release this transaction !');
+                if ($escrow->user_id != Auth::id())
+                    return redirect()->back()->with('error', 'You can not Release this transaction !');
 
-            Escrow::where('id', $escrow->id)->update([
-                'status' => 4 // completed
-            ]);
-            Escrow::where('dependent_id', $escrow->id)->update([
-                'status' => 4 // completed
-            ]);
+                Escrow::where('id', $escrow->id)->update([
+                    'status' => 4 // completed
+                ]);
+                Escrow::where('dependent_id', $escrow->id)->update([
+                    'status' => 4 // completed
+                ]);
+                $transaction =  Transaction::create([
+                    'transaction_unqiue_id' => Str::uuid(),
+                    'user_id' => $escrow->seller_id,
+                    'wallet_id' => $escrow->seller_wallet_id,
+                    'description' => 'Deposit funds via Escrow !',
+                    'credit' => $escrow->amount,
+                    'status' => 3, // 3 means HOLD
+                    'charges' => 0,
+                ]);
+                EscrowTransaction::create([
+                    'transaction_id' => $transaction->id,
+                    'escrow_id' => $escrow->dependent_id
+                ]);
+                HoldTransaction::create([
+                    'hold_id' => 1,
+                    'transaction_id' => $transaction->id,
+                    'amount' => $escrow->amount,
+                    'status' => 1,
+                ]);
             DB::commit();
             return redirect()->back()->with('success', 'Transaction release successfully!');
         } catch (\Throwable $th) {
