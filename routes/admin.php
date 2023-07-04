@@ -35,6 +35,8 @@ Route::group(['middleware' => ["auth", 'role:Admin'], 'prefix' => "admin"], func
     Route::resource('/currencies', CurrencyController::class);
 
     Route::get('/hold-transactions', [HoldController::class, 'index'])->name('hold-transaction.index');
+    Route::get('/hold-transactions/{hold_transaction}/approve', [HoldController::class, 'approveHoldTransaction'])->name('hold-transaction.approve');
+    Route::get('/hold-transactions/{hold_transaction}/reject', [HoldController::class, 'rejectHoldTransaction'])->name('hold-transaction.reject');
 
     //Card Routes
     Route::get('/cards', [CardController::class, 'index'])->name('card.index');

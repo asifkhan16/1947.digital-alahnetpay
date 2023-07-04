@@ -26,30 +26,29 @@
                            <tr>
                                <td>{{ $hold_transaction->id }}</td>
                                <td>{{ $hold_transaction->amount }}</td>
-                               
                                <td>
                                    @if ($hold_transaction->status == 1)
-                                       <span>Active</span>
+                                        <span class="badge bg-primary text-light">Active</span>
                                    @elseif ($hold_transaction->status == 2)
-                                       <span>Released</span>
+                                        <span class="badge bg-info text-light">Released</span>
                                    @elseif ($hold_transaction->status == 3)
-                                       <span>Cancelled</span>
+                                        <span class="badge bg-danger text-light">Cancelled</span>
                                     @endif
                                </td>
                                <td>
                                     actions
                                </td>
-                               {{-- <td>
-                                    @if($kyc->status == 0)
-                                        <a href="{{ route('kyc_verification.update.status',['kyc' => $kyc,'status' => 1]) }}" 
-                                            class="btn btn-sm btn-warning me-2">Approve
+                               <td>
+                                    @if($hold_transaction->status == 1)
+                                        <a href="{{ route('hold-transaction.approve',$hold_transaction) }}" 
+                                            class="btn btn-sm btn-warning me-2">Release
                                         </a>
-                                        <a href="{{ route('kyc_verification.update.status',['kyc' => $kyc,'status' => 2]) }}"
-                                        class="btn btn-sm btn-danger">Cancel
+                                        {{-- <a href="{{ route('hold-transaction.reject',$hold_transaction) }}"
+                                        class="btn btn-sm btn-danger">Cancel --}}
                                     @else
                                         N/A
                                     @endif
-                               </td> --}}
+                               </td>
                            </tr>
                        @endforeach
                    </tbody>
