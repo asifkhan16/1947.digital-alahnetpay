@@ -36,74 +36,65 @@
                                 <td>{{ $escrow->buyer->name }}</td>
                                 <td>{{ $escrow->amount }}</td>
                                 <td>{{ $escrow->description }}</td>
+                               <!-- statuses -->
                                 <td>
-                                    @if($escrow->role == 1)
+                                    @if (Auth::id() == $escrow->seller_id)
                                         @if ($escrow->status == 0)
-                                            <span class="badge bg-primary">buyer Pending</span>
+                                            <span class="badge bg-primary">Pending</span>
                                         @elseif ($escrow->status == 1)
                                             <span class="badge bg-primary">Accepted</span>
                                         @elseif ($escrow->status == 2)
                                             <span class="badge bg-danger">Cancelled</span>
                                         @elseif ($escrow->status == 3)
+                                            <span class="badge bg-success">Hold</span>
+                                        @elseif ($escrow->status == 4)
                                             <span class="badge bg-success">Completed</span>
                                         @endif
                                     @endif
 
-                                    @if($escrow->role == 2)
+                                    @if (Auth::id() == $escrow->buyer_id)
                                         @if ($escrow->status == 0)
-                                            <span class="badge bg-primary">buyer Pending</span>
+                                            <span class="badge bg-primary">Pending</span>
                                         @elseif ($escrow->status == 1)
                                             <span class="badge bg-primary">Accepted</span>
                                         @elseif ($escrow->status == 2)
                                             <span class="badge bg-danger">Cancelled</span>
                                         @elseif ($escrow->status == 3)
+                                            <span class="badge bg-warning">Hold</span>
+                                        @elseif ($escrow->status == 4)
                                             <span class="badge bg-success">Completed</span>
                                         @endif
                                     @endif
-                                    
                                 </td>
-                                <td class="text-center" style="width: 12rem">
-                                    @if($escrow->role == 1)
-                                        @if ($escrow->status == 0)
-                                            <span class="badge bg-primary">buyer Pending</span>
-                                        @elseif ($escrow->status == 1)
-                                            <span class="badge bg-primary">Accepted</span>
-                                        @elseif ($escrow->status == 2)
-                                            <span class="badge bg-danger">Cancelled</span>
-                                        @elseif ($escrow->status == 3)
-                                            <span class="badge bg-success">Completed</span>
-                                        @endif
-                                    @endif
 
-                                    @if($escrow->role == 2)
-                                        @if ($escrow->status == 0)
-                                            <span class="badge bg-primary">buyer Pending</span>
-                                        @elseif ($escrow->status == 1)
-                                            <span class="badge bg-primary">Accepted</span>
-                                        @elseif ($escrow->status == 2)
-                                            <span class="badge bg-danger">Cancelled</span>
-                                        @elseif ($escrow->status == 3)
-                                            <span class="badge bg-success"> </span>
-                                        @endif
-                                    @endif  
+                                <!-- Actions -->
+                                <td class="text-center" style="width: 12rem">
+                                    <!-- for Seller -->
+                                    @if (Auth::id() == $escrow->seller_id)
+                                        @if ($escrow->status == 0 && $escrow->role == 2)
                                             <a href="{{ route('user.escrow.accept', $escrow) }}"
                                                 class="btn btn-sm btn-success">Accept</a>
-                                            <a href="{{ route('user.escrow.reject', $escrow) }}"
-                                                class="btn btn-sm btn-danger">Reject</a>
+                                        @else
+                                            N/A
+                                        @endif
+                                    @endif
+
+                                    <!-- for Buyer -->
+                                    @if (Auth::id() == $escrow->buyer_id)
+                                        @if ($escrow->status == 0 && $escrow->role == 2)
+                                            <a href="{{ route('user.escrow.accept', $escrow) }}"
+                                                class="btn btn-sm btn-success">Accept</a>
+                                        @elseif ($escrow->status == 1)
                                             <a href="{{ route('user.escrow.release', $escrow) }}"
                                                 class="btn btn-sm btn-success">Release</a>
-                                        
+                                        @elseif ($escrow->status == 2)
+                                            <span class="badge bg-danger">Cancelled</span>
+                                        @else
+                                            N/A
+                                        @endif
+                                    @endif
+
                                 </td>
-                                {{-- @elseif($escrow->status == 1 && $escrow->creator_id == Auth::id()) --}}
-                                @if($escrow->type == 1 && $escrow->creator_id != Auth::id() && $escrow->status == 1 )
-                                    <td class="text-center" style="width: 12rem">
-                                        <a href="{{ route('user.escrow.release', $escrow) }}"
-                                            class="btn btn-sm btn-success">Release</a>
-                                    </td>
-                                @else
-                                    {{-- <td class="text-center" style="width: 12rem"><span
-                                            class="badge bg-light">Requested</span></td> --}}
-                                @endif
                             </tr>
                         @endforeach
                     </tbody>

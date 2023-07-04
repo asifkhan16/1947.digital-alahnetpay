@@ -17,7 +17,7 @@ class EcsrowController extends Controller
 
     public function index()
     {
-        $escrows = Escrow::with('seller', 'buyer')->where('user_id',Auth::id())->get();
+        $escrows = Escrow::with('seller', 'buyer')->where('user_id', Auth::id())->get();
         // dd($escrows->toArray());
         return view('user.escrow.index')->with('escrows', $escrows);
     }
@@ -48,7 +48,7 @@ class EcsrowController extends Controller
 
 
         $recipient_wallet = Wallet::where('address', $request->receiver_wallet_address)->first();
-        $user_wallet = Wallet::where('id',$request->user_wallet_id)->first();
+        $user_wallet = Wallet::where('id', $request->user_wallet_id)->first();
 
         if (!$recipient_wallet)
             return redirect()->back()->with('error', 'Recipient Wallet not found!');
@@ -56,23 +56,23 @@ class EcsrowController extends Controller
         if ($recipient_wallet->user_id == Auth::id())
             return redirect()->back()->with('error', 'You are not able to make an escrow request to yourself!');
 
-        if(!$user_wallet)
-            return back()->with('error','Your Walllet not found please select the correct wallet.');
+        if (!$user_wallet)
+            return back()->with('error', 'Your Walllet not found please select the correct wallet.');
 
-        if($request->request_type == 1){
-            if($user_wallet->balance < $request->amount)
-                return back()->with('error','You have insufficient balance.');
+        if ($request->request_type == 1) {
+            if ($user_wallet->balance < $request->amount)
+                return back()->with('error', 'You have insufficient balance.');
         }
 
-        if($request->request_type == 2){
-            if($recipient_wallet->balance < $request->amount)
-                return back()->with('error','Recipient have insufficient balance.');
+        if ($request->request_type == 2) {
+            if ($recipient_wallet->balance < $request->amount)
+                return back()->with('error', 'Recipient have insufficient balance.');
         }
 
         try {
-
+            DB::beginTransaction();
             if ($request->request_type == 1) {
-                Escrow::create([
+                $escrow_1 =  Escrow::create([
                     'title' => $request->title,
                     'user_id' => Auth::id(),
                     'seller_id' => $recipient_wallet->user_id,
@@ -83,10 +83,10 @@ class EcsrowController extends Controller
                     'description' => $request->description,
                     'status' => 0,
                     'request_type' => $request->request_type,
-                    'role' => 1
+                    'role' => 1,
                 ]);
 
-                Escrow::create([
+                $escrow_2 = Escrow::create([
                     'title' => $request->title,
                     'user_id' => $recipient_wallet->user_id,
                     'seller_id' => $recipient_wallet->user_id,
@@ -97,11 +97,14 @@ class EcsrowController extends Controller
                     'description' => $request->description,
                     'status' => 0,
                     'request_type' => $request->request_type,
-                    'role' => 2
+                    'role' => 2,
+                    'dependent_id' => $escrow_1->id
                 ]);
-
+                $escrow_1->update([
+                    'dependent_id' => $escrow_2->id
+                ]);
             } elseif ($request->request_type == 2) {
-                Escrow::create([
+                $escrow_1 = Escrow::create([
                     'title' => $request->title,
                     'user_id' => Auth::id(),
                     'seller_id' => Auth::id(),
@@ -115,7 +118,7 @@ class EcsrowController extends Controller
                     'request_type' => $request->request_type
                 ]);
 
-                Escrow::create([
+                $escrow_2 = Escrow::create([
                     'title' => $request->title,
                     'user_id' => $recipient_wallet->user_id,
                     'seller_id' => Auth::id(),
@@ -126,101 +129,55 @@ class EcsrowController extends Controller
                     'description' => $request->description,
                     'status' => 0,
                     'role' => 2,
-                    'request_type' => $request->request_type
+                    'request_type' => $request->request_type,
+                    'dependent_id' => $escrow_1->id
+                ]);
+                $escrow_1->update([
+                     'dependent_id' => $escrow_2->id
                 ]);
             }
-
+            DB::commit();
             return redirect()->route('user.escrow')->with('success', 'Your escrow request has been successfully submitted!');
         } catch (\Throwable $th) {
+            DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
     public function acceptEscrow(Escrow $escrow)
     {
-        // dd($escrow->toArray());
-        if ($escrow->receiver_id != Auth::id())
-            return redirect()->back()->with('error', 'You are unable to Accept this escrow !');
+
+        $dependent_escrow = Escrow::where('dependent_id', $escrow->id)->first();
+
+        $wallet = Wallet::find($escrow->buyer_wallet_id);
+        if ($wallet->balance < $escrow->amount)
+            return redirect()->back()->with('error', 'Insufficient balance in wallet to accept this escrow!');
+
+        Wallet::where('id', $wallet->id)->decrement('balance', $escrow->amount);
 
         try {
             DB::beginTransaction();
-            if ($escrow->type == 1) {  // seller type
-                $wallet = Wallet::find($escrow->buyer_wallet_id);
-                if ($wallet->balance < $escrow->amount)
-                    return redirect()->back()->with('error', 'You have insufficient balance in wallet to accept this escrow');
+            $transaction =  Transaction::create([
+                'transaction_unqiue_id' => Str::uuid(),
+                'user_id' => $wallet->user_id,
+                'wallet_id' => $wallet->id,
+                'description' => 'Withdraw funds via Escrow !',
+                'debit' => $escrow->amount,
+                'status' => 3, // 3 means HOLD
+                'charges' => 0,
+            ]);
+            EscrowTransaction::create([
+                'transaction_id' => $transaction->id,
+                'escrow_id' => $escrow->id
+            ]);
 
-                Wallet::where('id', $wallet->id)->decrement('balance', $escrow->amount);
-                Escrow::where('id', $escrow->id)->update(['status' =>  1]);  // 1 mean's accept
-                $transaction =  Transaction::create([
-                    'transaction_unqiue_id' => Str::uuid(),
-                    'user_id' => Auth::id(),
-                    'wallet_id' => $wallet->id,
-                    'description' => 'Withdraw funds via Escrow !',
-                    'debit' => $escrow->amount,
-                    'status' => 3, // 3 means HOLD
-                    'charges' => 0,
-                ]);
-                EscrowTransaction::create([
-                    'transaction_id' => $transaction->id,
-                    'escrow_id' => $escrow->id
-                ]);
-
-                $wallet = Wallet::find($escrow->seller_wallet_id);
-
-                $transaction =  Transaction::create([
-                    'transaction_unqiue_id' => Str::uuid(),
-                    'user_id' => $wallet->user_id,
-                    'wallet_id' => $wallet->id,
-                    'description' => 'deposit funds via Escrow !',
-                    'credit' => $escrow->amount,
-                    'status' => 3, // 3 means HOLD
-                    'charges' => 0,
-                ]);
-                EscrowTransaction::create([
-                    'transaction_id' => $transaction->id,
-                    'escrow_id' => $escrow->id
-                ]);
+            if (Auth::id() == $escrow->seller_id) {
+                Escrow::where('id', $escrow->id)->update(['status' =>  3]);
+                Escrow::where('id', $dependent_escrow->id)->update(['status' => 1]);
+            } elseif (Auth::id() == $escrow->buyer_id) {
+                Escrow::where('id', $escrow->id)->update(['status' =>  1]);
+                Escrow::where('id', $dependent_escrow->id)->update(['status' => 3]);
             }
-
-            if ($escrow->type == 2) { // buyer type
-                $wallet = Wallet::find($escrow->buyer_wallet_id);
-                if ($wallet->balance < $escrow->amount)
-                    return redirect()->back()->with('error', 'wallet have insufficient balance.');
-
-                Wallet::where('id', $wallet->id)->decrement('balance', $escrow->amount);
-                Escrow::where('id', $escrow->id)->update(['status' =>  1]);  // 1 mean's accept
-                $transaction = Transaction::create([
-                    'transaction_unqiue_id' => Str::uuid(),
-                    'user_id' => $wallet->user_id,
-                    'wallet_id' => $wallet->id,
-                    'description' => 'Withdraw funds via Escrow !',
-                    'debit' => $escrow->amount,
-                    'status' => 3, // 3 means HOLD
-                    'charges' => 0,
-                ]);
-                EscrowTransaction::create([
-                    'transaction_id' => $transaction->id,
-                    'escrow_id' => $escrow->id
-                ]);
-
-                $seller_wallet = Wallet::find($escrow->seller_wallet_id);
-                // dd($seller_wallet->toArray());
-
-                $transaction = Transaction::create([
-                    'transaction_unqiue_id' => Str::uuid(),
-                    'user_id' => Auth::id(),
-                    'wallet_id' => $seller_wallet->id,
-                    'description' => 'deposit funds via Escrow !',
-                    'credit' => $escrow->amount,
-                    'status' => 3, // 3 means HOLD
-                    'charges' => 0,
-                ]);
-                EscrowTransaction::create([
-                    'transaction_id' => $transaction->id,
-                    'escrow_id' => $escrow->id
-                ]);
-            }
-
             DB::commit();
             return redirect()->back()->with('success', 'Escrow accepted successfully !');
         } catch (\Throwable $th) {
@@ -240,35 +197,24 @@ class EcsrowController extends Controller
 
     public function releaseEscrow(Escrow $escrow)
     {
-        if ($escrow->type == 2) {
-            if ($escrow->creator_id != Auth::id())
-                return redirect()->back()->with('error', 'You can not Release this transaction !');
-        } elseif ($escrow->receiver_id != Auth::id())
-            return redirect()->back()->with('error', 'You can not Release this transaction !');
-
-            $transactions = Transaction::wherehas('escrow_transaction', function ($q) use ($escrow) {
-                $q->where('escrow_id', $escrow->id);
-            })->get();
-            // dd($transactions->toArray());
-
         try {
             DB::beginTransaction();
-            foreach ($transactions as $transaction) {
-                if ($transaction->debit == 0) {
-                    Wallet::where('id', $transaction->wallet_id)->increment('balance', $transaction->credit);
-                }
-                $transaction->update(['status' => 1]);
-            }
+            if ($escrow->user_id != Auth::id())
+                return redirect()->back()->with('error', 'You can not Release this transaction !');
+
             Escrow::where('id', $escrow->id)->update([
-                'status' => 3
+                'status' => 4 // completed
+            ]);
+            Escrow::where('dependent_id', $escrow->id)->update([
+                'status' => 4 // completed
             ]);
             DB::commit();
-            return redirect()->back()->with('success', 'Transaction completed !');
+            return redirect()->back()->with('success', 'Transaction release successfully!');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
         }
-        //  where('escrow_id',$escrow->id)->get();
+
 
     }
 }
