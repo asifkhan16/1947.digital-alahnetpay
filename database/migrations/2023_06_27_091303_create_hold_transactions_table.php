@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('hold_transactions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('hold_id')->constrained('holds','id');
+            $table->foreignId('transaction_id')->constrained('transactions','id');
+            $table->double('amount');
+            $table->tinyInteger('status')->comment('1 => Active, 2 => Release');
             $table->timestamps();
         });
     }
