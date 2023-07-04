@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CurrencySeeder::class,
             DepositMethodSeeder::class,
+            HoldSeeder::class
         ]);
     }
 }
