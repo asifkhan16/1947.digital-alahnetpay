@@ -1,7 +1,7 @@
 <x-layout.app>
     <!--breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-       <div class="breadcrumb-title pe-3">Kyc Verification</div>
+       <div class="breadcrumb-title pe-3">Hold Transactions</div>
        <div class="ps-3">
        </div>
        <div class="ms-auto">
@@ -30,8 +30,11 @@
                                <td>
                                    @if ($hold_transaction->status == 1)
                                        <span>Active</span>
-                                   @elseif ($kyc->status == 2)
+                                   @elseif ($hold_transaction->status == 2)
                                        <span>Released</span>
+                                   @elseif ($hold_transaction->status == 3)
+                                       <span>Cancelled</span>
+                                    @endif
                                </td>
                                <td>
                                     actions

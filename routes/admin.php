@@ -7,9 +7,7 @@ use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DepositController;
 use App\Http\Controllers\Admin\DepositMethodController;
-
-
-
+use App\Http\Controllers\Admin\HoldController;
 
 Route::group(['middleware' => ["auth", 'role:Admin'], 'prefix' => "admin"], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -35,6 +33,8 @@ Route::group(['middleware' => ["auth", 'role:Admin'], 'prefix' => "admin"], func
 
     //Currencies Routes
     Route::resource('/currencies', CurrencyController::class);
+
+    Route::get('/hold-transactions', [HoldController::class, 'index'])->name('hold-transaction.index');
 
     //Card Routes
     Route::get('/cards', [CardController::class, 'index'])->name('card.index');

@@ -80,6 +80,23 @@
             </ul>
         </li>
         <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"> <i class="bx bx-donate-blood"></i>
+                </div>
+                <div class="menu-title">Hold Transactions</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('hold-transaction.index',['status' => -1]) }}"><i class='bx bx-radio-circle'></i>All Hold Transactions</a>
+                </li>
+                <li> <a href="{{ route('hold-transaction.index',['status' => 1]) }}"><i class='bx bx-radio-circle'></i>Active Transactions</a>
+                </li>
+                <li> <a href="{{ route('hold-transaction.index',['status' => 2]) }}"><i class='bx bx-radio-circle'></i>Released Transactions</a>
+                </li>
+                <li> <a href="{{ route('hold-transaction.index',['status' => 3]) }}"><i class='bx bx-radio-circle'></i>Cancelled Transactions</a>
+                </li>
+            </ul>
+        </li>
+        <li>
             <a href="{{ route('deposit-methods') }}">
                 <div class="parent-icon"><i class='lni lni-users'></i>
                 </div>
