@@ -20,7 +20,8 @@ class Escrow extends Model
         'description',
         'status',
         'request_type',
-        'role'
+        'role',
+        'dependent_id'
     ];
 
     public function seller()
