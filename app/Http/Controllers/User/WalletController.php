@@ -77,4 +77,11 @@ class WalletController extends Controller
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
+
+    public function walleTransactions(Wallet $wallet)
+    {
+        $wallet_transactions = Transaction::where('wallet_id', $wallet->id)->where('user_id', Auth::id())->get();
+        // dd($wallet_transactions->toArray());
+        return view('user.wallets.transaction')->with('wallet_transactions', $wallet_transactions);
+    }
 }

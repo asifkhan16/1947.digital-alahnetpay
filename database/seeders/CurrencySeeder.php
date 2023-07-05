@@ -16,7 +16,7 @@ class CurrencySeeder extends Seeder
         Currency::create([
             'country_name' => 'America',
             'country_code' => "US",
-            'currency_code' => 'USD'
+            'currency_code' => 'USD',
         ]);
         Currency::create([
             'country_name' => 'Europe',
