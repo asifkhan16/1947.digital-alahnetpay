@@ -10,7 +10,7 @@
     </div>
     <hr />
     <!--end breadcrumb-->
-    {{-- <x-alerts /> --}}
+    <x-alerts />
 
     <div class="row">
         <div class="col-xl-7 mx-auto">

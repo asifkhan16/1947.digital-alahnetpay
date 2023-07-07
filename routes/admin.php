@@ -45,7 +45,7 @@ Route::group(['middleware' => ["auth", 'role:Admin'], 'prefix' => "admin"], func
 
     // Merchant Routes
     Route::get('/merchants', [MerchantController::class, 'index'])->name('merchant.index');
-    Route::get('/merchants/approved/{merchant}', [MerchantController::class, 'index'])->name('merchant.approved');
-    Route::get('/merchants/reject/{merchant}', [MerchantController::class, 'index'])->name('merchant.reject');
+    Route::get('/merchants/approved/{merchant}', [MerchantController::class, 'ApproveBusinessKycVerfication'])->name('merchant.approved');
+    Route::get('/merchants/reject/{merchant}', [MerchantController::class, 'RejectBusinessKycVerfication'])->name('merchant.reject');
 
 });

@@ -1,7 +1,7 @@
 <x-layout.app>
     <!--breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Kyc Verification</div>
+        <div class="breadcrumb-title pe-3">Merchants</div>
         <div class="ps-3">
         </div>
         <div class="ms-auto">
@@ -9,7 +9,7 @@
     </div>
     <hr />
     <!--end breadcrumb-->
-    {{-- <x-alert /> --}}
+    <x-alerts />
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">

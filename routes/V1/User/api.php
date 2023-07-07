@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\V1\User\DepositController;
 use App\Http\Controllers\Api\V1\User\ProfileController;
 use App\Http\Controllers\Api\V1\User\Auth\AuthController;
 use App\Http\Controllers\Api\V1\User\KycVerificationController;
+use App\Http\Controllers\Api\V1\User\MerchantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +48,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::post('/card/store',            [CardController::class, 'store']);
 
-    //Escrow Route
+    //Escrow Routes
     Route::post('/escrow', [EcsrowController::class, 'store']);
+
+    // Merchant Routes
+    Route::post('/merchant', [MerchantController::class, 'store']);
 
 });
