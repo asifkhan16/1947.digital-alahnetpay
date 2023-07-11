@@ -9,6 +9,7 @@ use App\Http\Controllers\User\CardController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\EcsrowController;
 use App\Http\Controllers\User\MerchantController;
+use App\Http\Controllers\User\PaymentController;
 use App\Http\Controllers\User\WalletController;
 use Illuminate\Support\Facades\Route;
 
@@ -70,4 +71,13 @@ Route::group(['middleware' => ["auth", "role:User"], 'prefix' => 'user'], functi
     Route::get('/merchant',[MerchantController::class, 'index'])->name('user.merchant');
     Route::post('/merchant/store',[MerchantController::class, 'store'])->name('user.merchant.store');
 });
+
+Route::get('/payment', function () {
+    return view('payment');
+});
+Route::post('/pay',[PaymentController::class, 'paymentRequest']);
+
+
+
+
 require __DIR__ . '/auth.php';

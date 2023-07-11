@@ -29,7 +29,7 @@ class KycController extends Controller
     }
     public function kyc_pending()
     {
-        return view('admin.kyc-verification.pending')->with('pending_kyc', $pending_kyc);
+        // return view('admin.kyc-verification.pending')->with('pending_kyc', $pending_kyc);
     }
 
     public function kyc_completed()
