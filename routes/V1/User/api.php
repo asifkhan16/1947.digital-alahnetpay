@@ -2,15 +2,16 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\PaymentController;
 use App\Http\Controllers\Api\V1\User\CardController;
 use App\Http\Controllers\Api\V1\User\EcsrowController;
 use App\Http\Controllers\Api\V1\User\EscrowController;
 use App\Http\Controllers\Api\V1\User\WalletController;
 use App\Http\Controllers\Api\V1\User\DepositController;
 use App\Http\Controllers\Api\V1\User\ProfileController;
+use App\Http\Controllers\Api\V1\User\MerchantController;
 use App\Http\Controllers\Api\V1\User\Auth\AuthController;
 use App\Http\Controllers\Api\V1\User\KycVerificationController;
-use App\Http\Controllers\Api\V1\User\MerchantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,6 @@ use App\Http\Controllers\Api\V1\User\MerchantController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
 Route::get('/tesing_api', [AuthController::class, 'tesitng']);
 Route::post('/login',        [AuthController::class, 'login']);
 Route::post('/register',     [AuthController::class, 'register']);
