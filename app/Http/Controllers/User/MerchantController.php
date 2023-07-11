@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers\User;
 
+use DB;
 use App\Models\Merchant;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Models\Business_kyc_verfication;
-use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Business_kyc_verfication;
 
 class MerchantController extends Controller
 {
     public function index()
     {
+        $merchant = Merchant::where('user_id',Auth::id())->first();
+        if($merchant){
+            return view('user.merchant.edit')->with('merchant',$merchant);
+        }
         return view('user.merchant.index');
     }
 
@@ -30,6 +35,9 @@ class MerchantController extends Controller
             return back()->with('error', 'Your request already exist!');
 
         try {
+            $merchant = Merchant::where('user_id',Auth::id())->first();
+            if($merchant)
+                return back()->with('error','Your Request has been already submitted.');
             DB::beginTransaction();
             $merchant =  Merchant::create([
                 'user_id' => Auth::id(),
@@ -37,7 +45,7 @@ class MerchantController extends Controller
                 'store_address' => $request->store_address,
                 'website_url' => $request->website_url,
                 'client_id' => str_pad(mt_rand(1, 99999999), 8, '0', STR_PAD_LEFT) + Auth::id(),
-                'client_secret' => Str::random(20),
+                'client_secret' => Str::random(40),
                 'status' => 0
             ]);
 
@@ -61,6 +69,27 @@ class MerchantController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
             return back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function update(Request $request, Merchant $merchant){
+        $request->validate([
+            'store_name' => 'required|unique:merchants,store_name,'.$merchant->id,
+            'client_secret' => 'required|string'
+        ]);
+
+        try {
+            Merchant::where('id',$merchant->id)->update([
+                'store_name' => $request->store_name,
+                'store_address' => $request->store_address,
+                'client_secret' => $request->client_secret,
+                'website_url' => $request->website_url  
+            ]);
+
+            return back()->with('success','Merchant Details Updated Successfully.');
+        } catch (\Throwable $th) {
+           Log::error('update merchat error : '. $th->getMessage());
+           return back()->with('error',$th->getMessage());
         }
     }
 }
