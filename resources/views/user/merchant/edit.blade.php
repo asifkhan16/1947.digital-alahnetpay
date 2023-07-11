@@ -17,7 +17,18 @@
             <div class="card border-top border-0 border-4 border-white">
                 <div class="card-body px-5 py-4">
                     <div class="">
-                        <p style="font-size: 1rem" class="mb-4">Update Merchant Details</p>
+                        <p style="font-size: 1rem" class="mb-4">
+                            {{ $merchant->store_name }}
+                            <span>
+                                @if ($merchant->status == 0)
+                                    <span class="badge bg-primary text-light">Requested</span>
+                                @elseif ($merchant->status == 1)
+                                    <span class="badge bg-primary text-light">Approved</span>
+                                @elseif($merchant->status == 2)
+                                    <span class="badge bg-danger text-light">Rejected</span>
+                                @endif
+                            </span>
+                        </p>
                     </div>
                     <form action="{{ route('user.merchant.update',$merchant) }}" method="POST" class="row g-3"  enctype="multipart/form-data">
                         @csrf
