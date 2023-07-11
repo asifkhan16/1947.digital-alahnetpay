@@ -15,6 +15,10 @@ class MerchantController extends Controller
 {
     public function index()
     {
+        $merchant = Merchant::where('user_id',Auth::id())->first();
+        if($merchant){
+            return view('user.merchant.edit')->with('merchant',$merchant);
+        }
         return view('user.merchant.index');
     }
 
@@ -27,6 +31,9 @@ class MerchantController extends Controller
         ]);
 
         try {
+            $merchant = Merchant::where('user_id',Auth::id())->first();
+            if($merchant)
+                return back()->with('error','Your Request has been already submitted.');
             DB::beginTransaction();
             $merchant =  Merchant::create([
                 'user_id' => Auth::id(),
@@ -34,7 +41,7 @@ class MerchantController extends Controller
                 'store_address' => $request->store_address,
                 'website_url' => $request->website_url,
                 'client_id' => str_pad(mt_rand(1, 99999999), 8, '0', STR_PAD_LEFT) + Auth::id(),
-                'client_secret' => Str::random(20),
+                'client_secret' => Str::random(40),
                 'status' => 0
             ]);
 

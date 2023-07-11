@@ -69,5 +69,6 @@ Route::group(['middleware' => ["auth", "role:User"], 'prefix' => 'user'], functi
     // merchant
     Route::get('/merchant',[MerchantController::class, 'index'])->name('user.merchant');
     Route::post('/merchant/store',[MerchantController::class, 'store'])->name('user.merchant.store');
+    Route::post('/merchant/{merchant}/update',[MerchantController::class, 'update'])->name('user.merchant.update');
 });
 require __DIR__ . '/auth.php';
