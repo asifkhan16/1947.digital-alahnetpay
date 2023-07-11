@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\User;
 
+use DB;
 use App\Models\Merchant;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Models\Business_kyc_verfication;
-use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Business_kyc_verfication;
 
 class MerchantController extends Controller
 {
@@ -65,6 +66,27 @@ class MerchantController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
             return back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function update(Request $request, Merchant $merchant){
+        $request->validate([
+            'store_name' => 'required|unique:merchants,store_name,'.$merchant->id,
+            'client_secret' => 'required|string'
+        ]);
+
+        try {
+            Merchant::where('id',$merchant->id)->update([
+                'store_name' => $request->store_name,
+                'store_address' => $request->store_address,
+                'client_secret' => $request->client_secret,
+                'website_url' => $request->website_url  
+            ]);
+
+            return back()->with('success','Merchant Details Updated Successfully.');
+        } catch (\Throwable $th) {
+           Log::error('update merchat error : '. $th->getMessage());
+           return back()->with('error',$th->getMessage());
         }
     }
 }

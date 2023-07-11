@@ -46,7 +46,7 @@
                             @enderror
                         </div>
                         <div class="col-12">
-                            <label for="client_secret" class="form-label">Client Scrit</label>
+                            <label for="client_secret" class="form-label">Client Secret</label>
                             <input type="text" class="form-control" id="store_address"
                                 value="{{ $merchant->client_secret }}" name="client_secret">
                             @error('client_secret')
