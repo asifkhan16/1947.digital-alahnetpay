@@ -20,7 +20,7 @@
                                         <input type="hidden" name="client_id" value="">
                                         <input type="hidden" name="client_secret" value="">
                                         <div class="col-12">
-                                            <label for="card_number" class="form-label">Email</label>
+                                            <label for="card_number" class="form-label">Card Number</label>
                                             <input type="text" class="form-control" name="card_number" :value={{ old('card_number') }} id="card_number" placeholder="0123456789">
                                             @error('card_number'    )
                                                 <span class="text-white">{{ $message }}</span>

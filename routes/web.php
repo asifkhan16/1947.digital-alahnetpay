@@ -73,10 +73,11 @@ Route::group(['middleware' => ["auth", "role:User"], 'prefix' => 'user'], functi
     Route::post('/merchant/{merchant}/update',[MerchantController::class, 'update'])->name('user.merchant.update');
 });
 
-Route::get('/payment', function () {
-    return view('payment');
+Route::get('/test_payment', function () {
+    return view('testPayment');
 });
-Route::post('/pay',[PaymentController::class, 'paymentRequest']);
+
+Route::post('/request_for_payment',[PaymentController::class, 'paymentRequest']);
 
 
 

@@ -10,7 +10,7 @@
     </div>
     <hr />
     <!--end breadcrumb-->
-    {{-- <x-alerts /> --}}
+    <x-alerts />
 
     <div class="row">
         <div class="col-xl-7 mx-auto">
@@ -23,7 +23,7 @@
                                 @if ($merchant->status == 0)
                                     <span class="badge bg-primary text-light">Requested</span>
                                 @elseif ($merchant->status == 1)
-                                    <span class="badge bg-primary text-light">Approved</span>
+                                    <span class="badge bg-success text-light">Approved</span>
                                 @elseif($merchant->status == 2)
                                     <span class="badge bg-danger text-light">Rejected</span>
                                 @endif
